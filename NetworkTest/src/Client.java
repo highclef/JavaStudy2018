@@ -7,7 +7,7 @@ public class Client {
 
 	public static void main(String[] args) {
 		try(Socket client = new Socket()) {
-			InetSocketAddress ipep = new InetSocketAddress("35.241.181.46", 80);
+			InetSocketAddress ipep = new InetSocketAddress("35.241.181.46", 7070);
 			client.connect(ipep);
 			
 			try(OutputStream sender = client.getOutputStream();
