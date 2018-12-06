@@ -1,8 +1,13 @@
 package application;
+
+import model.Member;
 import view.MainSceneController;
 import view.RootLayoutController;
 
 import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,16 +25,17 @@ public class MainApp extends Application {
 
 	Stage primaryStage;
 	private AnchorPane rootLayout;
-	
+
 	public MainApp() {
 
 	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Koreanisches Essen");
-		
+
 		initLayout();
 		showMainScene();
 	}
@@ -39,20 +45,20 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource(MainApp.SCENE_ROOTLAYOUT));
 			rootLayout = (AnchorPane) loader.load();
-			
+
 			Scene scene = new Scene(rootLayout);
 			this.primaryStage.setScene(scene);
-			
+
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
-			
+
 			this.primaryStage.show();
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showMainScene() {
 		try {
 
@@ -67,14 +73,30 @@ public class MainApp extends Application {
 			this.rootLayout.setLeftAnchor(pane, (double) 0);
 
 			this.rootLayout.getChildren().add(pane);
-			
+
 			MainSceneController controller = loader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	public static void main(String[] args) {
+
+		Member m = new Member();
+		m.setAge(10);
+		m.setFirstName("abc");
+		m.setLastName("bcdf");
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = new Gson();
+		String result = gson.toJson(m);
+		Logger.log(result);
+		Member mm = gson.fromJson(result, Member.class);
+		mm.setFirstName("dkvkbj");
+		result = gson.toJson(mm);
+		Logger.log(result);
+
 		launch(args);
 	}
 }
