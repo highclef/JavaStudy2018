@@ -83,4 +83,14 @@ public class MainSceneController {
 	private void onCommunityTabSelected() {
 		initTabContent();
 	}
+	
+	@FXML
+	private void onModifyInfo() {
+		Logger.log("");
+	}
+	
+	@FXML
+	private void onMessageBox() {
+		Logger.log("");
+	}
 }
