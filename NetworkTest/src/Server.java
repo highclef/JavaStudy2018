@@ -5,15 +5,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-
 public class Server {
 
 	public static void main(String[] args) {
 		try(ServerSocket server = new ServerSocket()) {
-			InetSocketAddress ipep = new InetSocketAddress(80);
+			InetSocketAddress ipep = new InetSocketAddress(7070);
 			server.bind(ipep);
 			
-			System.out.println("Initialize complete");
+			System.out.println("Port number : " + ipep.getPort() + " - Initialize complete");
 			
 			Socket client = server.accept();
 			System.out.println("Connection");
