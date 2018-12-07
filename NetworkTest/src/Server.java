@@ -1,40 +1,59 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
 public class Server {
 
 	public static void main(String[] args) {
-		try(ServerSocket server = new ServerSocket()) {
-			InetSocketAddress ipep = new InetSocketAddress(7070);
-			server.bind(ipep);
-			
-			System.out.println("Port number : " + ipep.getPort() + " - Initialize complete");
-			
-			Socket client = server.accept();
-			System.out.println("Connection");
-			
-			try(OutputStream sender = client.getOutputStream();
-				InputStream receiver = client.getInputStream();) {
-				String message = "hello world";
-				byte[] data = message.getBytes();
-				sender.write(data, 0, data.length);
-				
-				data = new byte[2];
-				receiver.read(data, 0, data.length);
-				
-				message = new String(data);
-				String out = String.format("receive - %s", message);
-				System.out.println(out);
-								
-			}
-		} catch(Throwable e) {
-			e.printStackTrace();
-		}
-
-	}
-
+        ServerSocket serverSocket = null;
+        try {
+     
+            serverSocket = new ServerSocket(7070);
+            System.out.println(getTime() + "READY");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (true) {
+            try {
+                System.out.println(getTime() + "Loading..");
+            
+                Socket socket = serverSocket.accept();
+                System.out.println("Port: " + socket.getPort());
+                System.out.println("LocalPort: " + socket.getLocalPort());
+                System.out.println(getTime() + socket.getInetAddress());
+               
+                InputStream in = socket.getInputStream();
+                OutputStream out = socket.getOutputStream();
+                DataInputStream dis = new DataInputStream(in);
+                DataOutputStream dos = new DataOutputStream(out);
+                
+                System.out.println("Connected Client");
+                
+            	
+                while(true) {
+                	String msg = dis.readUTF();
+                	System.out.println("Client : " + msg);
+                	dos.writeUTF(msg);
+                
+                }
+              
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    static String getTime() {
+        SimpleDateFormat f = new SimpleDateFormat("[hh:mm:ss]");
+        return f.format(new Date());
+    }
 }
+
+
