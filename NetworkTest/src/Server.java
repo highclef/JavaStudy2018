@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Server {
 
@@ -41,7 +42,6 @@ public class Server {
                 	String msg = dis.readUTF();
                 	System.out.println("Client : " + msg);
                 	dos.writeUTF(msg);
-                
                 }
               
             } catch (IOException e) {
