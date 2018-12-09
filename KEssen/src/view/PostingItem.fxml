@@ -17,7 +17,7 @@
       <ButtonBar fx:id="buttonBar" layoutX="528.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-6.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#onDeleteBtn" text="삭제" />
-            <Button mnemonicParsing="false" text="수정" />
+            <Button mnemonicParsing="false" onAction="#onModifyBtn" text="수정" />
         </buttons>
       </ButtonBar>
    </children>

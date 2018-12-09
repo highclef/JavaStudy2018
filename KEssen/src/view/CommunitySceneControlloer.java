@@ -14,15 +14,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.PostingModel;
 import util.Logger;
 
 public class CommunitySceneControlloer extends SceneTemplateController {
 	private String loginId = "ID7";
 	private static int count = 0;
-	
+
 	private ObservableList<PostingModel> postingModelList;
 	@FXML
 	VBox postingList;
@@ -37,13 +40,16 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 				// TODO Auto-generated method stub
 				while (c.next()) {
 					if (c.wasAdded()) {
+						Logger.log("was Addead");
 						addItem();
 					} else if (c.wasRemoved()) {
 						List<? extends PostingModel> l = c.getRemoved();
 						Logger.log("list size = " + l.size());
-						for (int i=0; i<l.size(); i++) {
+						for (int i = 0; i < l.size(); i++) {
 							Logger.log("deleted id : " + l.get(i).getId());
 						}
+					} else if (c.wasUpdated()) {
+						Logger.log("was updated");
 					}
 				}
 			}
@@ -151,35 +157,107 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void deleteItem(int modelId) {
-		for (int i=0; i<postingModelList.size(); i++) {
+		int foundIndex = findModelId(modelId);
+		if (foundIndex < 0) {
+			Logger.log("not found");
+			return;
+		}
+		postingModelList.remove(foundIndex);
+		postingList.getChildren().remove(foundIndex);
+
+//		ObservableList<Node> l = postingList.getChildren();
+//		for (int i = 0; i < l.size(); i++) {
+//			PostingItemController c = (PostingItemController) l.get(i).getUserData();
+//			if (c.getModelId() == modelId) {
+//				Logger.log("modelId : " + modelId);
+//				postingList.getChildren().remove(i);
+//			}
+//		}
+	}
+
+	public void modifyItem(int modelId) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.POSTWRITINGSCENE));
+			AnchorPane pane = (AnchorPane) loader.load();
+
+			Stage writeStage = new Stage();
+			writeStage.setTitle("Write Post");
+			writeStage.initModality(Modality.WINDOW_MODAL);
+			writeStage.initOwner(this.getMyNode().getScene().getWindow());
+			Scene scene = new Scene(pane);
+			writeStage.setScene(scene);
+
+			PostWritingSceneController controller = loader.getController();
+			controller.setId(loginId);
+			int foundIndex = findModelId(modelId);
+			if (foundIndex < 0) {
+				Logger.log("not found");
+				return;
+			}
+
+			controller.setTextPost(postingModelList.get(foundIndex).getMsg());
+			controller.setStage(writeStage);
+
+			writeStage.showAndWait();
+
+			if (controller.isCanceled()) {
+
+			} else {
+				postingModelList.get(foundIndex).setMsg(controller.getTextPost());
+				PostingItemController c = (PostingItemController) postingList.getChildren().get(foundIndex)
+						.getUserData();
+				c.setTextArea(controller.getTextPost());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int findModelId(int modelId) {
+		for (int i = 0; i < postingModelList.size(); i++) {
 			if (postingModelList.get(i).getModelId() == modelId) {
-				Logger.log("found index : " + i);
-				postingModelList.remove(i);
+				return i;
 			}
 		}
-		
-		ObservableList<Node> l = postingList.getChildren();
-		for (int i=0; i<l.size(); i++) {
-			PostingItemController c = (PostingItemController)l.get(i).getUserData();
-			if (c.getModelId() == modelId) {
-				Logger.log("modelId : " + modelId);
-				postingList.getChildren().remove(i);
-			}
-		}
+		return -1;
 	}
 
 	@FXML
 	private void onWriteText() {
-		Logger.log("");
-		
-		//test code!!
-		PostingModel posting8 = new PostingModel();
-		posting8.setId("ID7");
-		posting8.setMsg("Test7");
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.POSTWRITINGSCENE));
+			AnchorPane pane = (AnchorPane) loader.load();
 
-		posting8.setModelId(count++);
-		postingModelList.add(posting8);
+			Stage writeStage = new Stage();
+			writeStage.setTitle("Write Post");
+			writeStage.initModality(Modality.WINDOW_MODAL);
+			writeStage.initOwner(this.getMyNode().getScene().getWindow());
+			Scene scene = new Scene(pane);
+			writeStage.setScene(scene);
+
+			PostWritingSceneController controller = loader.getController();
+			controller.setId(loginId);
+			controller.setStage(writeStage);
+
+			writeStage.showAndWait();
+
+			if (controller.isCanceled()) {
+
+			} else {
+				PostingModel pm = new PostingModel();
+				pm.setId(loginId);
+				pm.setMsg(controller.getTextPost());
+
+				pm.setModelId(count++);
+				postingModelList.add(pm);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
