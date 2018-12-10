@@ -9,11 +9,11 @@ public class Converter {
 	public static void main(String[] args) {
 		Member member = Member.getMember();
 		
-		System.out.println("========= Object => Json ==========");
+		System.out.println("Parsing JSON Into Java Objects\n");
 		String jsonString = new Gson().toJson(member);
         System.out.println(jsonString);
         
-        System.out.println("========= Json => Object =========");
+        System.out.println("\nGenerating JSON From Java Objects\n");
         Member convertedJson = new Gson().fromJson(jsonString, Member.class);
         printMemberObject(convertedJson);
 	}
