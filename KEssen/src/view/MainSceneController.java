@@ -5,6 +5,7 @@ import java.io.IOException;
 import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -47,6 +48,24 @@ public class MainSceneController {
 			e.printStackTrace();
 		}
 	}
+
+	public void showCommunityScene() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.COMMUNITYSCENE));
+			Node pane = loader.load();
+
+			CommunitySceneControlloer controller = loader.getController();
+			controller.setMyTab(communityTab);
+			controller.setMyNode(pane);
+			
+			SceneController.getInstance().showAndAllHideRequest(controller);
+			Logger.log("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	public void initTabContent() {
 		if (homeTab != null) {
@@ -82,5 +101,16 @@ public class MainSceneController {
 	@FXML
 	private void onCommunityTabSelected() {
 		initTabContent();
+		showCommunityScene();
+	}
+	
+	@FXML
+	private void onModifyInfo() {
+		Logger.log("");
+	}
+	
+	@FXML
+	private void onMessageBox() {
+		Logger.log("");
 	}
 }
