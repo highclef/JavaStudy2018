@@ -7,15 +7,19 @@ import com.google.gson.Gson;
 public class Converter {
 
 	public static void main(String[] args) {
-		Member member = Member.getMember();
+		Member member = Member.getMemberList();
 		
 		System.out.println("Generating JSON From Java Objects\n");
-		String jsonString = new Gson().toJson(member);
-        System.out.println(jsonString);
+		String generatedJson = new Gson().toJson(member);
+        System.out.println(generatedJson);
         
         System.out.println("\nParsing JSON Into Java Objects\n");
-        Member convertedJson = new Gson().fromJson(jsonString, Member.class);
-        printMemberObject(convertedJson);
+        Gson gson = new Gson();
+        Member parsedJson = gson.fromJson(generatedJson, Member.class);
+        printMemberObject(parsedJson);
+        
+//        Member convertedJson = new Gson().fromJson(jsonString, Member.class);
+//        printMemberObject(convertedJson);
 	}
 	
 	private static void printMemberObject(Member member) {
