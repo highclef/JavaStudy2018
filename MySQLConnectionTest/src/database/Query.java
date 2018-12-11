@@ -61,7 +61,6 @@ public class Query extends Member {
 	}
 	public void insert() {
 		Member.getMemberDummy();
-
 		
 		try {
 			System.out.println("Insert Process");
@@ -70,7 +69,7 @@ public class Query extends Member {
 			Headers = "username, password, name, age, gender, email";
 			Values = "'testusername', '1234', 'test', 22, 'female', 'testemail@kessen.de'";
 			
-			SQL = "INSERT INTO " + tableName + " (" + Headers + ") VALUES (" + Values + ")";
+			SQL = "INSERT INTO " + tableName + " (" + Headers.toLowerCase() + ") VALUES (" + Values + ")";
 			
 			int count = st.executeUpdate(SQL);
 			

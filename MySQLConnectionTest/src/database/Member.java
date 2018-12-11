@@ -13,12 +13,16 @@ public class Member extends Main {
 	}
 	
 	public static class MemberInfo {
+		public ArrayList<MemberInfo> columnData;
+		
 		public String userName;
 		public String password;
 		public String name;
 		public int age;
 		public String gender;
 		public String email;
+		
+		columnData.add(userName.toString());
 		
 		public String getUserName() {
 			return userName;
