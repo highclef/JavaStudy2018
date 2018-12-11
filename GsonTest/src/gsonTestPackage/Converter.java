@@ -1,8 +1,10 @@
-package test1;
+package gsonTestPackage;
 
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+
+import gsonTestPackage.Member.MemberInfo;
 
 public class Converter {
 
@@ -27,7 +29,7 @@ public class Converter {
     	
 //    	System.out.println(memberInfoList);
     	
-        for (Member.MemberInfo memberInfo : memberInfoList) {
+        for (MemberInfo memberInfo : memberInfoList) {
             System.out.println(memberInfo);
         }
     }

@@ -1,4 +1,4 @@
-package test1;
+package gsonTestPackage;
 
 import java.util.ArrayList;
 

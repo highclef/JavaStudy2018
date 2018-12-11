@@ -1,22 +1,21 @@
 package database;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 
-public class Query extends DBConnection {
-	InputStream in = System.in;
-	InputStreamReader reader = new InputStreamReader(in);
-	BufferedReader br = new BufferedReader(reader);
+public class Query extends Member {
+
+	Scanner input = new Scanner(System.in);
 	
 	String tableName;
 	String SQL;
+	String Headers;
+	String Values;
 	
 	public void getTableName() throws Exception {
 		try {
 			System.out.println("Enter table name: ");
-			this.tableName = br.readLine();
+			this.tableName = input.next();
 			
 			tableExistence(tableName);
 		} 
@@ -36,18 +35,18 @@ public class Query extends DBConnection {
 		}
 	}
 	
-	public void search () {
+	public void select () {
 		try {
 			System.out.println("Search Process");
 		
 			System.out.println("SELECT: ");
-			String objectData = br.readLine();
+			String objectData = input.next();
 			
 			System.out.println("FROM " + tableName + " WHERE: ");
-			String columnData = br.readLine();
+			String columnData = input.next();
 			
 			System.out.println("=");
-			String sourceData = br.readLine();
+			String sourceData = input.next();
 			
 			SQL = "SELECT " + objectData + " FROM " + tableName + " WHERE " + columnData + " = '" + sourceData + "'";
 			rs = st.executeQuery(SQL);
@@ -60,4 +59,33 @@ public class Query extends DBConnection {
 			System.out.println("Database Search Error: " + e.getMessage());
 		}
 	}
+	public void insert() {
+		Member.getMemberDummy();
+
+		
+		try {
+			System.out.println("Insert Process");
+			
+			
+			Headers = "username, password, name, age, gender, email";
+			Values = "'testusername', '1234', 'test', 22, 'female', 'testemail@kessen.de'";
+			
+			SQL = "INSERT INTO " + tableName + " (" + Headers + ") VALUES (" + Values + ")";
+			
+			int count = st.executeUpdate(SQL);
+			
+			if( count == 0 ){
+			System.out.println("Data Insert Failure");
+			}
+			else{
+				System.out.println("Data Insert Success");
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Database Insert Error: " + e.getMessage());
+		}
+		
+	    
+	}
+	
 }
