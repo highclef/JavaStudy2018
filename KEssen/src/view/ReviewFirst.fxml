@@ -10,37 +10,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.9" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartController">
+<SplitPane dividerPositions="0.9" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="560.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ReviewFirstController">
    <items>
-      <AnchorPane fx:id="Mainpage" minHeight="0.0" minWidth="0.0" prefHeight="304.0" prefWidth="398.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="453.0" prefWidth="398.0">
          <children>
-            <TextArea fx:id="txt1" layoutX="15.0" layoutY="321.0" prefHeight="200.0" prefWidth="368.0" />
-            <Label fx:id="lbl1" layoutX="50.0" layoutY="221.0" text="Name">
+            <TextArea layoutX="15.0" layoutY="275.0" prefHeight="211.0" prefWidth="770.0" />
+            <Label layoutX="58.0" layoutY="219.0" text="Name">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <Label fx:id="lbl2" layoutX="204.0" layoutY="226.0" text="Addition">
+            <Label layoutX="268.0" layoutY="226.0" text="Addition">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <CheckBox layoutX="25.0" layoutY="270.0" mnemonicParsing="false" text="Food quality" />
-            <CheckBox layoutX="165.0" layoutY="270.0" mnemonicParsing="false" text="Food taste" />
-            <CheckBox layoutX="300.0" layoutY="270.0" mnemonicParsing="false" text="Service" />
-            <CheckBox layoutX="25.0" layoutY="295.0" mnemonicParsing="false" text="Politeness" />
-            <CheckBox layoutX="165.0" layoutY="295.0" mnemonicParsing="false" text="Ambience" />
-            <CheckBox layoutX="300.0" layoutY="295.0" mnemonicParsing="false" text="Location" />
-            <ImageView fitHeight="186.0" fitWidth="378.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <CheckBox layoutX="438.0" layoutY="220.0" mnemonicParsing="false" text="Food quality" />
+            <CheckBox layoutX="578.0" layoutY="220.0" mnemonicParsing="false" text="Food taste" />
+            <CheckBox layoutX="713.0" layoutY="220.0" mnemonicParsing="false" text="Service" />
+            <CheckBox layoutX="438.0" layoutY="245.0" mnemonicParsing="false" text="Politeness" />
+            <CheckBox layoutX="578.0" layoutY="245.0" mnemonicParsing="false" text="Ambience" />
+            <CheckBox layoutX="713.0" layoutY="245.0" mnemonicParsing="false" text="Location" />
+            <ImageView fitHeight="192.0" fitWidth="376.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="192.0" fitWidth="376.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="192.0" fitWidth="376.0" layoutX="408.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="398.0">
+      <AnchorPane prefHeight="51.0" prefWidth="398.0">
          <children>
-            <ButtonBar layoutX="119.0" layoutY="9.0" prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar layoutX="519.0" layoutY="-1.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button fx:id="btn1" mnemonicParsing="false" onAction="#btn1Clicked" text="Delete" />
-                  <Button fx:id="btn2" layoutX="135.0" layoutY="19.0" mnemonicParsing="false" onAction="#btn2Clicked" text="Register" />
-                  <Button fx:id="btn3" layoutX="135.0" layoutY="19.0" mnemonicParsing="false" onAction="#btn3Clicked" text="Cancel" />
+                  <Button mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="135.0" layoutY="19.0" mnemonicParsing="false" onAction="#RegisterButton" text="Register" />
+                  <Button layoutX="135.0" layoutY="19.0" mnemonicParsing="false" text="Cancel" />
                </buttons>
             </ButtonBar>
          </children>

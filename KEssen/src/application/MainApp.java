@@ -1,6 +1,7 @@
 package application;
 
 import model.Member;
+
 import view.MainSceneController;
 import view.RootLayoutController;
 
@@ -24,6 +25,8 @@ public class MainApp extends Application {
 	public static final String HOMESUBSCENE = "../view/HomeSubScene.fxml";
 	public static final String COMMUNITYSCENE = "../view/CommunityScene.fxml";
 	public static final String POSTWRITINGSCENE = "../view/PostWritingScene.fxml";
+	public static final String REVIEWFIRST = "../view/ReviewFirst.fxml";
+	public static final String REVIEWSECOND = "../view/ReviewSecond.fxml";
 
 	Stage primaryStage;
 	private AnchorPane rootLayout;
