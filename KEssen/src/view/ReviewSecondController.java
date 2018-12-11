@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 
-public class ReviewSummaryController implements Initializable{
+public class ReviewSecondController implements Initializable{
 
 	@FXML
 	public static Label txt2;

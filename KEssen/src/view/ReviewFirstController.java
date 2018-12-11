@@ -5,7 +5,7 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
-import view.ReviewController;
+import view.ReviewFirstController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class ReviewController implements Initializable{
+public class ReviewFirstController implements Initializable{
 
 	@FXML
 	private static Label lbl1;
