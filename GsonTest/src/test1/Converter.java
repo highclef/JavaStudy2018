@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 public class Converter {
 
 	public static void main(String[] args) {
-		Member member = Member.getMemberList();
+		Member member = Member.getMemberDummy();
 		
 		System.out.println("Generating JSON From Java Objects\n");
 		String generatedJson = new Gson().toJson(member);
@@ -24,6 +24,9 @@ public class Converter {
 	
 	private static void printMemberObject(Member member) {
     	ArrayList<Member.MemberInfo> memberInfoList = member.getMembers();
+    	
+//    	System.out.println(memberInfoList);
+    	
         for (Member.MemberInfo memberInfo : memberInfoList) {
             System.out.println(memberInfo);
         }

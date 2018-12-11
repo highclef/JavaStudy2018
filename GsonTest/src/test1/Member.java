@@ -57,7 +57,7 @@ public class Member {
 			this.email = email;
 		}
 	}
-	public static Member getMemberList() {
+	public static Member getMemberDummy() {
         Member member = new Member();
         
         ArrayList<Member.MemberInfo> memberInfoList = new ArrayList<MemberInfo>();
