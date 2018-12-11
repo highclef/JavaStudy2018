@@ -24,7 +24,7 @@ public class MainApp extends Application {
 	public static final String HOMESUBSCENE = "../view/HomeSubScene.fxml";
 	public static final String COMMUNITYSCENE = "../view/CommunityScene.fxml";
 	public static final String POSTWRITINGSCENE = "../view/PostWritingScene.fxml";
-		
+
 	Stage primaryStage;
 	private AnchorPane rootLayout;
 
