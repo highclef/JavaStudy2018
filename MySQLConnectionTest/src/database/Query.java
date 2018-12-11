@@ -1,5 +1,6 @@
 package database;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -43,12 +44,12 @@ public class Query extends Member {
 			String objectData = input.next();
 			
 			System.out.println("FROM " + tableName + " WHERE: ");
-			String columnData = input.next();
+			String targetData = input.next();
 			
 			System.out.println("=");
 			String sourceData = input.next();
 			
-			SQL = "SELECT " + objectData + " FROM " + tableName + " WHERE " + columnData + " = '" + sourceData + "'";
+			SQL = "SELECT " + objectData + " FROM " + tableName + " WHERE " + targetData + " = '" + sourceData + "'";
 			rs = st.executeQuery(SQL);
 			if(rs.next()) {
 				System.out.println(rs.getString(1));
@@ -60,25 +61,33 @@ public class Query extends Member {
 		}
 	}
 	public void insert() {
-		Member.getMemberDummy();
+		Member member = Member.getMemberDummy();
 		
 		try {
 			System.out.println("Insert Process");
 			
 			
 			Headers = "username, password, name, age, gender, email";
-			Values = "'testusername', '1234', 'test', 22, 'female', 'testemail@kessen.de'";
 			
-			SQL = "INSERT INTO " + tableName + " (" + Headers.toLowerCase() + ") VALUES (" + Values + ")";
+			ArrayList<Member.MemberInfo> memberInfoList = member.getMembers();
 			
-			int count = st.executeUpdate(SQL);
+			for (MemberInfo memberInfo : memberInfoList) {
+				Values = memberInfo.DBValue();
+				System.out.print("Saving Data: " + Values);
+				
+				SQL = "INSERT INTO " + tableName + " (" + Headers + ") VALUES (" + Values + ")";
+	            System.out.println(memberInfo);
+	            
+	            int count = st.executeUpdate(SQL);
+				
+				if( count == 0 ){
+				System.out.println("Data Insert Failure");
+				}
+				else{
+					System.out.println("Data Insert Success\n");
+				}
+	        }
 			
-			if( count == 0 ){
-			System.out.println("Data Insert Failure");
-			}
-			else{
-				System.out.println("Data Insert Success");
-			}
 		}
 		catch(Exception e) {
 			System.out.println("Database Insert Error: " + e.getMessage());

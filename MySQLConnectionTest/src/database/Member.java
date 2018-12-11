@@ -15,20 +15,19 @@ public class Member extends Main {
 	public static class MemberInfo {
 		public ArrayList<MemberInfo> columnData;
 		
-		public String userName;
+		public String username;
 		public String password;
 		public String name;
 		public int age;
 		public String gender;
 		public String email;
-		
-		// columnData.add(userName.toString());
+			
 		
 		public String getUserName() {
-			return userName;
+			return username;
 		}
-		public void setUserName(String userName) {
-			this.userName = userName;
+		public void setUserName(String username) {
+			this.username = username;
 		}
 		public String getPassword() {
 			return password;
@@ -60,12 +59,26 @@ public class Member extends Main {
 		public void setEmail(String email) {
 			this.email = email;
 		}
+	
+		public String toString() {
+			return "username: " + username 
+					+ "\npassword: " + password 
+					+ "\tname: " + name 
+					+ "\tage: " + age 
+					+ "\tgender: " + gender
+					+ "\temail: " + email;
+		}
+		
+		public String DBValue() {
+			return "'" + username + "', '" + password + "', '" + name + "', " + age + ", '" + gender + "', '" + email + "'";
+		}
+		
 	}
 	public static Member getMemberDummy() {
         Member member = new Member();
         
         ArrayList<Member.MemberInfo> memberInfoList = new ArrayList<MemberInfo>();
- 
+        
         Member.MemberInfo memberInfo = new MemberInfo();
         
         memberInfo.setUserName("jaehee");
