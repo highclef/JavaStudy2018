@@ -20,6 +20,15 @@ public class Member {
 		private String gender;
 		private String email;
 		
+		public String toString() {
+			return "username: " + userName 
+					+ "\npassword: " + password 
+					+ "\tname: " + name 
+					+ "\tage: " + age 
+					+ "\tgender: " + gender
+					+ "\temail: " + email;
+		}
+		
 		public String getUserName() {
 			return userName;
 		}
