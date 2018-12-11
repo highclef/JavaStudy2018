@@ -22,7 +22,7 @@ public class Member extends Main {
 		public String gender;
 		public String email;
 		
-		columnData.add(userName.toString());
+		// columnData.add(userName.toString());
 		
 		public String getUserName() {
 			return userName;
