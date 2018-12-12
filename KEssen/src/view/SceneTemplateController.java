@@ -2,7 +2,6 @@ package view;
 
 import java.io.IOException;
 
-
 import application.MainApp;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
