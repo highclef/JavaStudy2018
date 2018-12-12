@@ -1,35 +1,36 @@
 package view;
 
-import java.io.IOException;
+import view.ReviewFirstController;
 
+import java.io.IOException;
 
 import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+
 import util.Logger;
 
-public class HomeSceneController extends SceneTemplateController {
-	@FXML
+public class ReviewFirstController extends SceneTemplateController {
+
+		@FXML
 	private void initialize() {
 		Logger.log("");
 	}
 
-	@FXML
-	private void onNextBtn() {
-		showHomeSubScene();
+		@FXML
+		private void RegisterButton(){
+		showReviewSecond();
 		Logger.log("");
-	}
+		}
 
-	public void showHomeSubScene() {
+	public void showReviewSecond() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource(MainApp.HOMESUBSCENE));
+			loader.setLocation(MainApp.class.getResource(MainApp.REVIEWSECOND));
 			AnchorPane pane = (AnchorPane) loader.load();
 
-			HomeSubSceneController controller = loader.getController();
+			ReviewSecondController controller = loader.getController();
 			controller.setMyTab(super.getMyTab());
 			controller.setMyNode(pane);
 
@@ -39,4 +40,7 @@ public class HomeSceneController extends SceneTemplateController {
 			e.printStackTrace();
 		}
 	}
+
+
+
 }

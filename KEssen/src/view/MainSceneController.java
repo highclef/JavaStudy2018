@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 
+
 import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class MainSceneController {
 	Tab communityTab;
 
 	@FXML
-	private void initialize() {
+	private void informationTab() {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(
 				(ov, oldTab, newTab) -> changedTab(newTab));
 		Logger.log("");
@@ -42,7 +43,7 @@ public class MainSceneController {
 			HomeSceneController controller = loader.getController();
 			controller.setMyTab(homeTab);
 			controller.setMyNode(pane);
-			
+
 			SceneController.getInstance().showAndAllHideRequest(controller);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -58,7 +59,7 @@ public class MainSceneController {
 			CommunitySceneControlloer controller = loader.getController();
 			controller.setMyTab(communityTab);
 			controller.setMyNode(pane);
-			
+
 			SceneController.getInstance().showAndAllHideRequest(controller);
 			Logger.log("");
 		} catch (IOException e) {
@@ -66,7 +67,23 @@ public class MainSceneController {
 		}
 	}
 
-	
+	public void showinformation() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.REVIEWFIRST));
+			Node pane = loader.load();
+
+			ReviewFirstController controller = loader.getController();
+			controller.setMyTab(informationTab);
+			controller.setMyNode(pane);
+
+			SceneController.getInstance().showAndAllHideRequest(controller);
+			Logger.log("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void initTabContent() {
 		if (homeTab != null) {
 			homeTab.setContent(null);
@@ -87,28 +104,29 @@ public class MainSceneController {
 		initTabContent();
 		showHomeScene();
 	}
-	
+
 	@FXML
 	private void onLoginTabSelected() {
 		initTabContent();
 	}
-	
+
 	@FXML
 	private void onInformationTabSelected() {
 		initTabContent();
+		showinformation();
 	}
-	
+
 	@FXML
 	private void onCommunityTabSelected() {
 		initTabContent();
 		showCommunityScene();
 	}
-	
+
 	@FXML
 	private void onModifyInfo() {
 		Logger.log("");
 	}
-	
+
 	@FXML
 	private void onMessageBox() {
 		Logger.log("");

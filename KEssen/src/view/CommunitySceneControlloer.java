@@ -35,7 +35,6 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 		Logger.log("");
 		postingModelList = FXCollections.observableArrayList();
 		postingModelList.addListener(new ListChangeListener<PostingModel>() {
-			@Override
 			public void onChanged(Change<? extends PostingModel> c) {
 				// TODO Auto-generated method stub
 				while (c.next()) {
