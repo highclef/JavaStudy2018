@@ -2,11 +2,14 @@ package application;
 
 import model.Member;
 import network.NetworkData;
+import network.NetworkManager;
 import view.MainSceneController;
 import view.RootLayoutController;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -89,10 +92,10 @@ public class MainApp extends Application {
 
 	public static void main(String[] args) {
 
-		Member m = new Member();
-		m.setAge(10);
-		m.setFirstName("abc");
-		m.setLastName("bcdf");
+//		Member m = new Member();
+//		m.setAge(10);
+//		m.setFirstName("abc");
+//		m.setLastName("bcdf");
 //		GsonBuilder gsonBuilder = new GsonBuilder();
 //		gsonBuilder.setPrettyPrinting();
 //		Gson gson = new Gson();
@@ -103,24 +106,39 @@ public class MainApp extends Application {
 //		result = gson.toJson(mm);
 //		Logger.log(result);
 		
-		NetworkData d = new NetworkData(1, m);
-		d.pack();
-		d.printData();
+//		NetworkData d = new NetworkData(1, m);
+//		d.pack();
+//		d.printData();
+//		
+//		NetworkData dd = new NetworkData();
+//		try {
+//		dd = (NetworkData)d.clone();
+//		} catch (CloneNotSupportedException e) {
+//			e.printStackTrace();
+//		}
+//		dd.setMessageID(0);
+//		dd.setData("");
+//		dd.unPack();
+//		Member mm = new Member();
+//		mm = dd.dataFromJson(mm);
+//		dd.printData();
+//		Logger.log("mm data : " + mm.getFirstName());
 		
-		NetworkData dd = new NetworkData();
-		try {
-		dd = (NetworkData)d.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-		dd.setMessageID(0);
-		dd.setData("");
-		dd.unPack();
-		Member mm = new Member();
-		mm = dd.dataFromJson(mm);
-		dd.printData();
-		Logger.log("mm data : " + mm.getFirstName());
+		NetworkManager nm = NetworkManager.getInstance();
+		Timer timer = new Timer();
+		TimerTask timerTask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Logger.log("connect server!");
+				if (NetworkManager.getInstance().connect()) {
+					timer.cancel();
+				}
+			}
+		};
 		
+		timer.schedule(timerTask, 2000);
 		launch(args);
 	}
 }

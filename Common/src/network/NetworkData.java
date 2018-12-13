@@ -33,6 +33,7 @@ public class NetworkData implements Cloneable{
 		Logger.log(Integer.toString(dataBuffer.capacity()));
 	}
 	public void unPack() {
+		Logger.log(Integer.toString(dataBuffer.capacity()));
 		// get header
 		byte[] b = new byte[HEADERNAME.length()];
 		dataBuffer.flip();
