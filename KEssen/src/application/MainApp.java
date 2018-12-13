@@ -1,11 +1,12 @@
 package application;
 
 import model.Member;
-
+import network.NetworkData;
 import view.MainSceneController;
 import view.RootLayoutController;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -92,16 +93,34 @@ public class MainApp extends Application {
 		m.setAge(10);
 		m.setFirstName("abc");
 		m.setLastName("bcdf");
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = new Gson();
-		String result = gson.toJson(m);
-		Logger.log(result);
-		Member mm = gson.fromJson(result, Member.class);
-		mm.setFirstName("dkvkbj");
-		result = gson.toJson(mm);
-		Logger.log(result);
-
+//		GsonBuilder gsonBuilder = new GsonBuilder();
+//		gsonBuilder.setPrettyPrinting();
+//		Gson gson = new Gson();
+//		String result = gson.toJson(m);
+//		Logger.log(result);
+//		Member mm = gson.fromJson(result, Member.class);
+//		mm.setFirstName("dkvkbj");
+//		result = gson.toJson(mm);
+//		Logger.log(result);
+		
+		NetworkData d = new NetworkData(1, m);
+		d.pack();
+		d.printData();
+		
+		NetworkData dd = new NetworkData();
+		try {
+		dd = (NetworkData)d.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		dd.setMessageID(0);
+		dd.setData("");
+		dd.unPack();
+		Member mm = new Member();
+		mm = dd.dataFromJson(mm);
+		dd.printData();
+		Logger.log("mm data : " + mm.getFirstName());
+		
 		launch(args);
 	}
 }
