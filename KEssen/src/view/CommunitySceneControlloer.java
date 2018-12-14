@@ -21,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.PostingModel;
+import network.NetworkData;
+import network.NetworkManager;
 import util.Logger;
 
 public class CommunitySceneControlloer extends SceneTemplateController {
@@ -31,11 +33,16 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 	@FXML
 	VBox postingList;
 
+	public CommunitySceneControlloer() {
+		// TODO Auto-generated constructor stub
+		NetworkManager.getInstance().setCommunitySceneControlloer(this);
+	}
 	@FXML
 	private void initialize() {
 		Logger.log("");
 		postingModelList = FXCollections.observableArrayList();
 		postingModelList.addListener(new ListChangeListener<PostingModel>() {
+			@Override
 			public void onChanged(Change<? extends PostingModel> c) {
 				// TODO Auto-generated method stub
 				while (c.next()) {
@@ -54,7 +61,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 				}
 			}
 		});
-		initData();
+//		initData();
 	}
 
 	public void initData() {
@@ -251,13 +258,19 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 				PostingModel pm = new PostingModel();
 				pm.setId(loginId);
 				pm.setMsg(controller.getTextPost());
-
-				pm.setModelId(count++);
-				postingModelList.add(pm);
+				
+				NetworkData d = new NetworkData(1, pm);
+				d.pack();
+				d.printData();
+				Logger.log("capacity : " + d.getByteBuffer().capacity());
+				NetworkManager.getInstance().send(d.getByteBuffer());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	public void addPostingModel(PostingModel pm) {
+		postingModelList.add(pm);
 	}
 }

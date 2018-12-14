@@ -3,11 +3,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import model.PostingModel;
+import network.MessageIDs;
+import network.NetworkData;
+import util.Logger;
 
 public class Server {
 
@@ -35,13 +41,45 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-
-	void sendToAll(String msg) {
+//
+//	void sendToAll(String msg) {
+//		Iterator it = clients.keySet().iterator();
+//		while (it.hasNext()) {
+//			try {
+//				DataOutputStream out = (DataOutputStream) clients.get(it.next());
+//				out.writeUTF(msg);
+//			} catch (IOException e) {
+//
+//			}
+//		}
+//	}
+	public void messageHandler(byte []b) {
+		Logger.log("byte length : " + b.length);
+		ByteBuffer bb = ByteBuffer.allocate(b.length);
+		bb.put(b);
+		Logger.log("capacity : " + bb.capacity());
+		NetworkData nd = new NetworkData(bb);
+		nd.unPack();
+		nd.printData();
+		
+		if (nd.getMessageID() == MessageIDs.ADDPOSTINGDATA_REQ) {
+			PostingModel data = new PostingModel();
+			data = nd.dataFromJson(data);
+			Logger.log("posting model msg : " + data.getMsg());
+			//need saving to DB
+			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+			nData.pack();
+			nData.toString();
+			send(nData.getByteBuffer());
+		}
+	}
+	
+	public void send(ByteBuffer bb) {
 		Iterator it = clients.keySet().iterator();
 		while (it.hasNext()) {
 			try {
 				DataOutputStream out = (DataOutputStream) clients.get(it.next());
-				out.writeUTF(msg);
+				out.write(bb.array());
 			} catch (IOException e) {
 
 			}
@@ -73,16 +111,17 @@ public class Server {
 		public void run() {
 			String name = "";
 			try {
-				name = in.readUTF();
-				sendToAll("#" + name + "has joined the room.");
-				clients.put(name, out);
+				clients.put(1, out);
 				System.out.println("Connected : " + clients.size() + "users");
 				while (in != null) {
-					sendToAll(in.readUTF());
+//					sendToAll(in.readUTF());
+					byte b[] = new byte[1024];
+					in.read(b);
+					messageHandler(b);
 				}
 			} catch (IOException e) {
 			} finally {
-				sendToAll("#" + name + "has disconnected");
+//				sendToAll("#" + name + "has disconnected");
 				clients.remove(name);
 				System.out.println("[" + socket.getInetAddress() + ":" + socket.getPort() + "]" + "has disconnected");
 				System.out.println("There are currently " + clients.size() + "users");
