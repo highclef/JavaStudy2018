@@ -22,6 +22,9 @@ public class NetworkData implements Cloneable{
 	public NetworkData(ByteBuffer b) {
 		dataBuffer = b;
 	}
+	public NetworkData(int messageID) {
+		this(messageID, "");
+	}
 	public <T> NetworkData(int messageID, T data) {
 		setMessageID(messageID);
 		setData(data);
