@@ -86,7 +86,6 @@ public class Query extends Member {
 			String tableName = queryInfo.getTableName();
 			System.out.println("Insert Process");
 			
-			
 			queryInfo.setHeaders("username, password, name, age, gender, email");
 			
 			ArrayList<Member.MemberInfo> memberInfoList = member.getMembers();
