@@ -4,14 +4,14 @@ public class Main extends DBConnection {
 
 	public static void main(String[] args) throws Exception {
 		Query query = new Query();
-				
-		query.getTableName();
+		
+		// query.getTableName();
 		
 		// query.select();
 		
-		query.insert();
+		// query.insert();
 		
-		
+		System.out.println("Connection Close");
 		con.close();
 	}
 
