@@ -3,6 +3,8 @@ package view;
 import java.io.IOException;
 
 
+
+
 import application.MainApp;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +14,7 @@ import util.Logger;
 public class SceneTemplateController {
 	private Tab myTab;
 	private Node myNode;
-	
+
 	public void onShow() {
 		Logger.log("");
 	}
@@ -31,18 +33,18 @@ public class SceneTemplateController {
 	public void setMyTab(Tab myTab) {
 		this.myTab = myTab;
 	}
-	
+
 	public Tab getMyTab() {
 		return myTab;
 	}
-	
+
 	public void setMyNode(Node myNode) {
 		this.myNode = myNode;
 	}
 	public Node getMyNode() {
 		return myNode;
 	}
-	
+
 	public void close() {
 		this.myTab = null;
 		this.myNode = null;

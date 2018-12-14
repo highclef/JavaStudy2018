@@ -1,6 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import util.Logger;
