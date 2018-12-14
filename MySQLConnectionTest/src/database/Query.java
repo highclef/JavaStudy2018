@@ -114,5 +114,12 @@ public class Query extends Member {
 		}
 	}
 	
+	public void update() {
+		
+	}
+	
+	public void delete() {
+		
+	}
 	
 }
