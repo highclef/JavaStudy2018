@@ -10,7 +10,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.sun.istack.internal.logging.Logger;
+import model.PostingModel;
+import network.MessageIDs;
+import network.NetworkData;
+import util.Logger;
 
 public class Server extends DBConnection {
 
@@ -66,9 +69,14 @@ public class Server extends DBConnection {
 			
 			//need saving to DB
 			String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) "
-					+ "VALUES ('" + data.id + "', '" + data.getMsg() +"')";
-					
-			int count = st.executeUpdate(SQL);
+					+ "VALUES ('" + data.getId() + "', '" + data.getMsg() +"')";
+				
+			int count =0;
+			try {
+				count = st.executeUpdate(SQL);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			if( count == 0 ){
 			System.out.println("Data Insert Failure");
