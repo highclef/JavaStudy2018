@@ -29,7 +29,7 @@ public class Server {
 		Socket socket = null;
 		try {
 			serverSocket = new ServerSocket(7070);
-			System.out.println(getTime() + "wating connection..");
+			System.out.println(getTime() + "waiting connection..");
 			while (true) {
 				socket = serverSocket.accept();
 				System.out.println("[" + socket.getInetAddress() + ":" + socket.getPort() + "]");
@@ -66,7 +66,20 @@ public class Server {
 			PostingModel data = new PostingModel();
 			data = nd.dataFromJson(data);
 			Logger.log("posting model msg : " + data.getMsg());
+			
 			//need saving to DB
+			String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) "
+					+ "VALUES ('" + data.id + "', '" + data.getMsg() +""')";
+					
+			int count = st.executeUpdate(SQL);
+			
+			if( count == 0 ){
+			System.out.println("Data Insert Failure");
+			}
+			else{
+				System.out.println("Data Insert Success\n");
+			}
+			
 			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 			nData.pack();
 			nData.toString();
