@@ -14,8 +14,8 @@ public class DBConnection {
 	static private final String PASSWORD = "ehrdlftmxjel";
 	
 	protected static Connection con;
-	protected Statement st;
-	protected ResultSet rs;
+	protected static Statement st;
+	protected static ResultSet rs;
 
 	public DBConnection() {
 		try {
