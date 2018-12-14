@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 import com.sun.istack.internal.logging.Logger;
 
-public class Server {
+public class Server extends DBConnection {
 
 	HashMap clients;
 
