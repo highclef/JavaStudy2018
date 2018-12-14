@@ -13,6 +13,7 @@ import java.util.Iterator;
 import model.PostingModel;
 import network.MessageIDs;
 import network.NetworkData;
+import util.Logger;
 
 public class Server extends DBConnection {
 
@@ -40,6 +41,7 @@ public class Server extends DBConnection {
 			e.printStackTrace();
 		}
 	}
+
 //
 //	void sendToAll(String msg) {
 //		Iterator it = clients.keySet().iterator();
@@ -52,73 +54,11 @@ public class Server extends DBConnection {
 //			}
 //		}
 //	}
-	public void messageHandler(byte []b) {
-		Logger.log("byte length : " + b.length);
-		ByteBuffer bb = ByteBuffer.allocate(b.length);
-		bb.put(b);
-		Logger.log("capacity : " + bb.capacity());
-		NetworkData nd = new NetworkData(bb);
-		nd.unPack();
-		nd.printData();
-		
-		if (nd.getMessageID() == MessageIDs.ADDPOSTINGDATA_REQ) {
-			PostingModel data = new PostingModel();
-			data = nd.dataFromJson(data);
-			Logger.log("posting model msg : " + data.getMsg());
-			
-			//need saving to DB
-			String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) "
-					+ "VALUES ('" + data.getId() + "', '" + data.getMsg() +"')";
-				
-			int count =0;
-			try {
-				count = st.executeUpdate(SQL);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if( count == 0 ){
-			System.out.println("Data Insert Failure");
-			}
-			else{
-				System.out.println("Data Insert Success\n");
-			}
-			
-			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
-			nData.pack();
-			nData.toString();
-			send(nData.getByteBuffer());
-		}
-		else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
-			PostingModel data = new PostingModel();
-			// data = nd.dataFromJson(data);
-			data.setId(loginId);
-			Logger.log("ID : " + data.getId());
-			
-			// TODO: Message Log Return
-
-			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
-			nData.pack();
-			nData.toString();
-			send(nData.getByteBuffer());
-		}
-	}
 	
-	public void send(ByteBuffer bb) {
-		Iterator it = clients.keySet().iterator();
-		while (it.hasNext()) {
-			try {
-				DataOutputStream out = (DataOutputStream) clients.get(it.next());
-				out.write(bb.array());
-			} catch (IOException e) {
-
-			}
-		}
-	}
 	static String getTime() {
 		SimpleDateFormat f = new SimpleDateFormat("[hh:mm:ss");
 		return f.format(new Date());
-	}	
+	}
 
 	public static void main(String[] args) {
 		new Server().start();
@@ -135,6 +75,63 @@ public class Server extends DBConnection {
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
 			} catch (IOException e) {
+			}
+		}
+
+		public void messageHandler(byte[] b) {
+			Logger.log("byte length : " + b.length);
+			ByteBuffer bb = ByteBuffer.allocate(b.length);
+			bb.put(b);
+			Logger.log("capacity : " + bb.capacity());
+			NetworkData nd = new NetworkData(bb);
+			nd.unPack();
+			nd.printData();
+
+			if (nd.getMessageID() == MessageIDs.ADDPOSTINGDATA_REQ) {
+				PostingModel data = new PostingModel();
+				data = nd.dataFromJson(data);
+				Logger.log("posting model msg : " + data.getMsg());
+
+				// need saving to DB
+				String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) " + "VALUES ('" + data.getId()
+						+ "', '" + data.getMsg() + "')";
+
+				int count = 0;
+				try {
+					count = st.executeUpdate(SQL);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				if (count == 0) {
+					System.out.println("Data Insert Failure");
+				} else {
+					System.out.println("Data Insert Success\n");
+					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+					nData.pack();
+					nData.toString();
+					send(nData.getByteBuffer());
+				}
+			} else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
+				PostingModel data = new PostingModel();
+				// data = nd.dataFromJson(data);
+//				data.setId(loginId);
+				Logger.log("ID : " + data.getId());
+
+				// TODO: Message Log Return
+
+				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+				nData.pack();
+				nData.toString();
+				send(nData.getByteBuffer());
+			}
+		}
+		
+		public void send(ByteBuffer bb) {
+			try {
+				out.write(bb.array());
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -157,6 +154,5 @@ public class Server extends DBConnection {
 				System.out.println("There are currently " + clients.size() + "users");
 			}
 		}
-			
 	}
 }
