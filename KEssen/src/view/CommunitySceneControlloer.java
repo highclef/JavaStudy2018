@@ -1,7 +1,6 @@
 package view;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -21,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.PostingModel;
+import network.MessageIDs;
 import network.NetworkData;
 import network.NetworkManager;
 import util.Logger;
@@ -61,52 +61,56 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 				}
 			}
 		});
-//		initData();
+		initData();
 	}
 
 	public void initData() {
-		PostingModel posting1 = new PostingModel();
-		posting1.setId("abc");
-		posting1.setMsg("Test1111");
-
-		PostingModel posting2 = new PostingModel();
-		posting2.setId("ID2");
-		posting2.setMsg("Test2222");
-
-		PostingModel posting3 = new PostingModel();
-		posting3.setId("ID3");
-		posting3.setMsg("Test3");
-
-		PostingModel posting4 = new PostingModel();
-		posting4.setId("ID4");
-		posting4.setMsg("Test4");
-
-		PostingModel posting5 = new PostingModel();
-		posting5.setId("ID5");
-		posting5.setMsg("Test5");
-
-		PostingModel posting6 = new PostingModel();
-		posting6.setId("ID6");
-		posting6.setMsg("Test6");
-
-		PostingModel posting7 = new PostingModel();
-		posting7.setId("ID7");
-		posting7.setMsg("Test7");
-
-		posting1.setModelId(count++);
-		postingModelList.add(posting1);
-		posting2.setModelId(count++);
-		postingModelList.add(posting2);
-		posting3.setModelId(count++);
-		postingModelList.add(posting3);
-		posting4.setModelId(count++);
-		postingModelList.add(posting4);
-		posting5.setModelId(count++);
-		postingModelList.add(posting5);
-		posting6.setModelId(count++);
-		postingModelList.add(posting6);
-		posting7.setModelId(count++);
-		postingModelList.add(posting7);
+		NetworkData data = new NetworkData(MessageIDs.POSTINGDATALIST_REQ);
+		data.pack();
+		NetworkManager.getInstance().send(data.getByteBuffer());
+		
+//		PostingModel posting1 = new PostingModel();
+//		posting1.setId("abc");
+//		posting1.setMsg("Test1111");
+//
+//		PostingModel posting2 = new PostingModel();
+//		posting2.setId("ID2");
+//		posting2.setMsg("Test2222");
+//
+//		PostingModel posting3 = new PostingModel();
+//		posting3.setId("ID3");
+//		posting3.setMsg("Test3");
+//
+//		PostingModel posting4 = new PostingModel();
+//		posting4.setId("ID4");
+//		posting4.setMsg("Test4");
+//
+//		PostingModel posting5 = new PostingModel();
+//		posting5.setId("ID5");
+//		posting5.setMsg("Test5");
+//
+//		PostingModel posting6 = new PostingModel();
+//		posting6.setId("ID6");
+//		posting6.setMsg("Test6");
+//
+//		PostingModel posting7 = new PostingModel();
+//		posting7.setId("ID7");
+//		posting7.setMsg("Test7");
+//
+//		posting1.setModelId(count++);
+//		postingModelList.add(posting1);
+//		posting2.setModelId(count++);
+//		postingModelList.add(posting2);
+//		posting3.setModelId(count++);
+//		postingModelList.add(posting3);
+//		posting4.setModelId(count++);
+//		postingModelList.add(posting4);
+//		posting5.setModelId(count++);
+//		postingModelList.add(posting5);
+//		posting6.setModelId(count++);
+//		postingModelList.add(posting6);
+//		posting7.setModelId(count++);
+//		postingModelList.add(posting7);
 
 //		GsonBuilder gsonBuilder = new GsonBuilder();
 //		gsonBuilder.setPrettyPrinting();

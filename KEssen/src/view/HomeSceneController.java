@@ -3,8 +3,6 @@ package view;
 import java.io.IOException;
 
 
-
-
 import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -105,12 +106,13 @@ public class MainApp extends Application {
 //		mm.setFirstName("dkvkbj");
 //		result = gson.toJson(mm);
 //		Logger.log(result);
-		
+
+//		int m = 10;
 //		NetworkData d = new NetworkData(1, m);
 //		d.pack();
 //		d.printData();
 //		
-//		NetworkData dd = new NetworkData();
+//		NetworkData dd = new NetworkData(d.getByteBuffer());
 //		try {
 //		dd = (NetworkData)d.clone();
 //		} catch (CloneNotSupportedException e) {
@@ -122,12 +124,14 @@ public class MainApp extends Application {
 //		Member mm = new Member();
 //		mm = dd.dataFromJson(mm);
 //		dd.printData();
-//		Logger.log("mm data : " + mm.getFirstName());
-		
+//		int a = 0;
+//		a = dd.dataFromJson(a);
+//		Logger.log("mm data : " + a);
+
 		NetworkManager nm = NetworkManager.getInstance();
 		Timer timer = new Timer();
 		TimerTask timerTask = new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -137,8 +141,8 @@ public class MainApp extends Application {
 				}
 			}
 		};
-		
-		timer.schedule(timerTask, 2000);
+
+		timer.scheduleAtFixedRate(timerTask, 0, 5000);
 		launch(args);
 	}
 }
