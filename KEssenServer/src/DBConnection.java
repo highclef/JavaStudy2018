@@ -5,10 +5,7 @@ import java.sql.Statement;
 
 public class DBConnection {
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
-<<<<<<< HEAD
 //	static private final String DB_URL = "jdbc:mysql://35.241.181.46/kessen";
-=======
->>>>>>> branch 'master' of http://35.228.32.209/root/project
 	static private final String DB_URL = "jdbc:mysql://localhost/kessen";
 	static private final String SERVERTIMEZONE = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
