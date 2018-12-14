@@ -10,10 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import model.PostingModel;
-import network.MessageIDs;
-import network.NetworkData;
-import util.Logger;
+import com.sun.istack.internal.logging.Logger;
 
 public class Server {
 
@@ -69,7 +66,7 @@ public class Server {
 			
 			//need saving to DB
 			String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) "
-					+ "VALUES ('" + data.id + "', '" + data.getMsg() +""')";
+					+ "VALUES ('" + data.id + "', '" + data.getMsg() +"')";
 					
 			int count = st.executeUpdate(SQL);
 			
