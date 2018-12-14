@@ -13,7 +13,6 @@ import java.util.Iterator;
 import model.PostingModel;
 import network.MessageIDs;
 import network.NetworkData;
-import util.Logger;
 
 public class Server extends DBConnection {
 
@@ -85,6 +84,19 @@ public class Server extends DBConnection {
 				System.out.println("Data Insert Success\n");
 			}
 			
+			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+			nData.pack();
+			nData.toString();
+			send(nData.getByteBuffer());
+		}
+		else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
+			PostingModel data = new PostingModel();
+			// data = nd.dataFromJson(data);
+			data.setId(loginId);
+			Logger.log("ID : " + data.getId());
+			
+			// TODO: Message Log Return
+
 			NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 			nData.pack();
 			nData.toString();
