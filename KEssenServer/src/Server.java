@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -19,7 +20,9 @@ public class Server {
 
 	HashMap clients;
 	DBConnection dbConnection = new DBConnection();
-	
+	Statement st;
+	ResultSet rs;
+			
 	Server() {
 		clients = new HashMap();
 		Collections.synchronizedMap(clients);
@@ -98,7 +101,7 @@ public class Server {
 
 				int count = 0;
 				try {
-					count = dbConnection.st.executeUpdate(SQL);
+					count = st.executeUpdate(SQL);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -116,31 +119,43 @@ public class Server {
 				PostingModel data = new PostingModel();
 				data = nd.dataFromJson(data);
 				
-//				String SQL = "SELECT id FROM kessen.postingmodel";
-//				dbConnection.rs = dbConnection.st.executeQuery(SQL);
+//				Method 1
 //				
-//				int count = rs.getInt(1);
+//				String SQL = "SELECT id FROM kessen.postingmodel";
+//				rs = st.executeQuery(SQL);
+//				
+//				int rowCount = rs.getInt(1);
 				
-				dbConnection.st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				dbConnection.rs = dbConnection.st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel");
-				dbConnection.rs.last();
 				
-				int count = dbConnection.rs.getRow();
-				System.out.println("Row Count: " + count);
+//				Method 2
+//				st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//				rs = st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel");
+//				rs.last();
+//				
+//				int rowCount = rs.getRow();
+				
+//				Method 3
+				
+				String SQL = "SELECT * FROM kessen.postingmodel";
+				rs = st.executeQuery(SQL);
+				rs.last();
+				int rowCount = rs.getRow();
+
+				System.out.println("Row Count: " + rowCount);
 				
 				SQL = "SELECT * FROM kessen.postingmodel";
-				dbConnection.rs = dbConnection.st.executeQuery(SQL);
+				rs = st.executeQuery(SQL);
 				
 				while(rs.next()) {
-					Int id = dbConnection.rs.getInt("id");
+					Int id = rs.getInt("id");
 					data.setId(id);
 					Logger.log("Loading ID : " + data.getId());
 					
-					String username = dbConnection.rs.getString("username");
+					String username = rs.getString("username");
 					data.setUsername(username);
 					Logger.log("Loading Username : " + data.getUsername());
 					
-					String msg = dbConnection.rs.getString("msg");
+					String msg = rs.getString("msg");
 					data.setMsg(msg);
 					Logger.log("Loading Msg : " + data.getMsg());
 				}
