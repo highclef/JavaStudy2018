@@ -1,21 +1,21 @@
 package model;
 
 public class PostingModel {
-	int modelId;
-	String id;
+	int id;
+	String username;
 	String msg;
 	
-	public int getModelId() {
-		return modelId;
-	}
-	public void setModelId(int modelId) {
-		this.modelId = modelId;
-	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getMsg() {
 		return msg;

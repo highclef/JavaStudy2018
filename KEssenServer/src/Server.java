@@ -92,8 +92,7 @@ public class Server extends DBConnection {
 				data = nd.dataFromJson(data);
 				Logger.log("posting model msg : " + data.getMsg());
 
-				// need saving to DB
-				String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) " + "VALUES ('" + data.getId()
+				String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) " + "VALUES ('" + data.getUsername()
 						+ "', '" + data.getMsg() + "')";
 
 				int count = 0;
@@ -114,12 +113,28 @@ public class Server extends DBConnection {
 				}
 			} else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
 				PostingModel data = new PostingModel();
-				// data = nd.dataFromJson(data);
-//				data.setId(loginId);
-				Logger.log("ID : " + data.getId());
-
+				data = nd.dataFromJson(data);
+				
 				// TODO: Message Log Return
+				Int id;
+				String username;
+				String msg;
+				
+				String SQL = "SELECT * FROM kessen.postingmodel";
+				rs = st.executeQuery(SQL);
+				
+				int count = rs.getInt(1);
+				System.out.println("Row Count: " + count);
+				
+				data.setId(id);
+				Logger.log("Loading ID : " + data.getId());
 
+				data.setUsername(username);
+				Logger.log("Loading Username : " + data.getId());
+				
+				data.setMsg(msg);
+				Logger.log("Loading Msg : " + data.getId());
+				
 				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 				nData.pack();
 				nData.toString();
