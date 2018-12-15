@@ -22,6 +22,7 @@ public class Server {
 	Server() {
 		clients = new HashMap();
 		Collections.synchronizedMap(clients);
+		DBConnection dbConnection = new DBConnection();
 	}
 
 	public void start() {
@@ -68,8 +69,7 @@ public class Server {
 		Socket socket;
 		DataInputStream in;
 		DataOutputStream out;
-		DBConnection dbConnection = new DBConnection();
-
+		
 		ServerReceiver(Socket socket) {
 			this.socket = socket;
 			try {
