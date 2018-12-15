@@ -18,11 +18,11 @@ import util.Logger;
 public class Server {
 
 	HashMap clients;
-
+	DBConnection dbConnection = new DBConnection();
+	
 	Server() {
 		clients = new HashMap();
 		Collections.synchronizedMap(clients);
-		DBConnection dbConnection = new DBConnection();
 	}
 
 	public void start() {
