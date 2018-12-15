@@ -116,25 +116,31 @@ public class Server extends DBConnection {
 				data = nd.dataFromJson(data);
 				
 				// TODO: Message Log Return
-				
-				Int id;
-				String username;
-				String msg;
-				
-				String SQL = "SELECT * FROM kessen.postingmodel";
+				String SQL = "SELECT id FROM kessen.postingmodel";
 				rs = st.executeQuery(SQL);
 				
 				int count = rs.getInt(1);
 				System.out.println("Row Count: " + count);
 				
-				data.setId(id);
-				Logger.log("Loading ID : " + data.getId());
-
-				data.setUsername(username);
-				Logger.log("Loading Username : " + data.getUsername());
-				
-				data.setMsg(msg);
-				Logger.log("Loading Msg : " + data.getMsg());
+				for (Iterator i;i<count;i++) {
+					SQL = "SELECT id FROM kessen.postingmodel WHERE id = " + i;
+					rs = st.executeQuery(SQL);
+					Int id = rs.getInt(1);
+					data.setId(id);
+					Logger.log("Loading ID : " + data.getId());
+					
+					SQL = "SELECT username FROM kessen.postingmodel WHERE id = " + i;
+					rs = st.executeQuery(SQL);
+					String username = rs.getString(1);
+					data.setUsername(username);
+					Logger.log("Loading Username : " + data.getUsername());
+					
+					SQL = "SELECT msg FROM kessen.postingmodel WHERE id = " + i;
+					rs = st.executeQuery(SQL);
+					String msg = rs.getString(1);
+					data.setMsg(msg);
+					Logger.log("Loading Msg : " + data.getMsg());
+				}
 				
 				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 				nData.pack();
