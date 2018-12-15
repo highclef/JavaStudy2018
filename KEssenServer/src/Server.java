@@ -116,26 +116,30 @@ public class Server {
 				PostingModel data = new PostingModel();
 				data = nd.dataFromJson(data);
 				
-				String SQL = "SELECT id FROM kessen.postingmodel";
-				dbConnection.rs = dbConnection.st.executeQuery(SQL);
+//				String SQL = "SELECT id FROM kessen.postingmodel";
+//				dbConnection.rs = dbConnection.st.executeQuery(SQL);
+//				
+//				int count = rs.getInt(1);
 				
-				int count = rs.getInt(1);
+				dbConnection.st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				dbConnection.rs = dbConnection.st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel");
+				dbConnection.rs.last();
+				
+				int count = dbConnection.rs.getRow();
 				System.out.println("Row Count: " + count);
 				
 				SQL = "SELECT * FROM kessen.postingmodel";
 				dbConnection.rs = dbConnection.st.executeQuery(SQL);
 				
 				while(rs.next()) {
-					Int id = rs.getInt("id");
+					Int id = dbConnection.rs.getInt("id");
 					data.setId(id);
 					Logger.log("Loading ID : " + data.getId());
 					
-					dbConnection.rs = dbConnection.st.executeQuery(SQL);
 					String username = dbConnection.rs.getString("username");
 					data.setUsername(username);
 					Logger.log("Loading Username : " + data.getUsername());
 					
-					dbConnection.rs = dbConnection.st.executeQuery(SQL);
 					String msg = dbConnection.rs.getString("msg");
 					data.setMsg(msg);
 					Logger.log("Loading Msg : " + data.getMsg());
