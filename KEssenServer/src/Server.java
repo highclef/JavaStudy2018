@@ -15,7 +15,7 @@ import network.MessageIDs;
 import network.NetworkData;
 import util.Logger;
 
-public class Server extends DBConnection {
+public class Server {
 
 	HashMap clients;
 
@@ -68,6 +68,7 @@ public class Server extends DBConnection {
 		Socket socket;
 		DataInputStream in;
 		DataOutputStream out;
+		DBConnection dbConnection = new DBConnection();
 
 		ServerReceiver(Socket socket) {
 			this.socket = socket;
@@ -97,7 +98,7 @@ public class Server extends DBConnection {
 
 				int count = 0;
 				try {
-					count = st.executeUpdate(SQL);
+					count = dbConnection.st.executeUpdate(SQL);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -115,32 +116,50 @@ public class Server extends DBConnection {
 				PostingModel data = new PostingModel();
 				data = nd.dataFromJson(data);
 				
-				// TODO: Message Log Return
 				String SQL = "SELECT id FROM kessen.postingmodel";
-				rs = st.executeQuery(SQL);
+				dbConnection.rs = dbConnection.st.executeQuery(SQL);
 				
 				int count = rs.getInt(1);
 				System.out.println("Row Count: " + count);
 				
-				for (Iterator i;i<count;i++) {
-					SQL = "SELECT id FROM kessen.postingmodel WHERE id = " + i;
-					rs = st.executeQuery(SQL);
-					Int id = rs.getInt(1);
+				SQL = "SELECT * FROM kessen.postingmodel";
+				dbConnection.rs = dbConnection.st.executeQuery(SQL);
+				
+				while(rs.next()) {
+					Int id = rs.getInt("id");
 					data.setId(id);
 					Logger.log("Loading ID : " + data.getId());
 					
-					SQL = "SELECT username FROM kessen.postingmodel WHERE id = " + i;
-					rs = st.executeQuery(SQL);
-					String username = rs.getString(1);
+					dbConnection.rs = dbConnection.st.executeQuery(SQL);
+					String username = dbConnection.rs.getString("username");
 					data.setUsername(username);
 					Logger.log("Loading Username : " + data.getUsername());
 					
-					SQL = "SELECT msg FROM kessen.postingmodel WHERE id = " + i;
-					rs = st.executeQuery(SQL);
-					String msg = rs.getString(1);
+					dbConnection.rs = dbConnection.st.executeQuery(SQL);
+					String msg = dbConnection.rs.getString("msg");
 					data.setMsg(msg);
 					Logger.log("Loading Msg : " + data.getMsg());
 				}
+				
+//				for (Iterator i=1;i<count;i++) {
+//					SQL = "SELECT id FROM kessen.postingmodel WHERE id = " + i;
+//					rs = st.executeQuery(SQL);
+//					Int id = rs.getInt(1);
+//					data.setId(id);
+//					Logger.log("Loading ID : " + data.getId());
+//					
+//					SQL = "SELECT username FROM kessen.postingmodel WHERE id = " + i;
+//					rs = st.executeQuery(SQL);
+//					String username = rs.getString(1);
+//					data.setUsername(username);
+//					Logger.log("Loading Username : " + data.getUsername());
+//					
+//					SQL = "SELECT msg FROM kessen.postingmodel WHERE id = " + i;
+//					rs = st.executeQuery(SQL);
+//					String msg = rs.getString(1);
+//					data.setMsg(msg);
+//					Logger.log("Loading Msg : " + data.getMsg());
+//				}
 				
 				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 				nData.pack();
