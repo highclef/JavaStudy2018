@@ -13,9 +13,27 @@ public class DBConnection {
 	static private final String PASSWORD = "ehrdlftmxjel";
 	
 	protected static Connection con;
+
+
 	protected Statement st;
 	protected ResultSet rs;
+	
+	public Statement getSt() {
+		return st;
+	}
 
+	public void setSt(Statement st) {
+		this.st = st;
+	}
+
+	public ResultSet getRs() {
+		return rs;
+	}
+
+	public void setRs(ResultSet rs) {
+		this.rs = rs;
+	}
+	
 	public DBConnection() {
 		try {
 			Class.forName(JDBC_DRIVER);

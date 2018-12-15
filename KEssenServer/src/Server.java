@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import model.PostingModel;
 import network.MessageIDs;
@@ -20,14 +19,12 @@ public class Server {
 
 	HashMap clients;
 	DBConnection dbConnection = new DBConnection();
-	Statement st;
-	ResultSet rs;
-			
+	
 	Server() {
 		clients = new HashMap();
 		Collections.synchronizedMap(clients);
 	}
-
+	
 	public void start() {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
@@ -98,10 +95,10 @@ public class Server {
 
 				String SQL = "INSERT INTO `kessen`.`postingmodel` (`username`, `msg`) " + "VALUES ('" + data.getUsername()
 						+ "', '" + data.getMsg() + "')";
-
+				
 				int count = 0;
 				try {
-					count = st.executeUpdate(SQL);
+					count = dbConnection.getSt().executeUpdate(SQL);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -122,41 +119,47 @@ public class Server {
 //				Method 1
 //				
 //				String SQL = "SELECT id FROM kessen.postingmodel";
-//				rs = st.executeQuery(SQL);
+//				dbConnection.getRs(st.executeQuery(SQL));
 //				
 //				int rowCount = rs.getInt(1);
 				
 				
 //				Method 2
-//				st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//				rs = st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel");
-//				rs.last();
+//				dbConnection.getSt(con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE));
+//				dbConnection.getRs(st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel"));
+//				dbConnection.getRs().last();
 //				
-//				int rowCount = rs.getRow();
+//				int rowCount = dbConnection.getRs().getRow();
 				
 //				Method 3
 				String SQL = "SELECT * FROM kessen.postingmodel";
-				rs = st.executeQuery(SQL);
-				rs.last();
-				int rowCount = rs.getRow();
-
-				System.out.println("Row Count: " + rowCount);
+				try {
+					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 				
-				SQL = "SELECT * FROM kessen.postingmodel";
-				rs = st.executeQuery(SQL);
-				
-				while(rs.next()) {
-					Int id = rs.getInt("id");
-					data.setId(id);
-					Logger.log("Loading ID : " + data.getId());
+					dbConnection.getRs().last();
+					int rowCount = dbConnection.getRs().getRow();
+	
+					System.out.println("Row Count: " + rowCount);
 					
-					String username = rs.getString("username");
-					data.setUsername(username);
-					Logger.log("Loading Username : " + data.getUsername());
+					SQL = "SELECT * FROM kessen.postingmodel";
+					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 					
-					String msg = rs.getString("msg");
-					data.setMsg(msg);
-					Logger.log("Loading Msg : " + data.getMsg());
+					while(dbConnection.getRs().next()) {
+						int id = dbConnection.getRs().getInt("id");
+						data.setId(id);
+						Logger.log("Loading ID : " + data.getId());
+						
+						String username = dbConnection.getRs().getString("username");
+						data.setUsername(username);
+						Logger.log("Loading Username : " + data.getUsername());
+						
+						String msg = dbConnection.getRs().getString("msg");
+						data.setMsg(msg);
+						Logger.log("Loading Msg : " + data.getMsg());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 //				for (Iterator i=1;i<count;i++) {
