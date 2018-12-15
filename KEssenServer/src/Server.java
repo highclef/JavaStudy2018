@@ -135,7 +135,6 @@ public class Server {
 //				int rowCount = rs.getRow();
 				
 //				Method 3
-				
 				String SQL = "SELECT * FROM kessen.postingmodel";
 				rs = st.executeQuery(SQL);
 				rs.last();
