@@ -116,6 +116,7 @@ public class Server extends DBConnection {
 				data = nd.dataFromJson(data);
 				
 				// TODO: Message Log Return
+				
 				Int id;
 				String username;
 				String msg;
@@ -130,10 +131,10 @@ public class Server extends DBConnection {
 				Logger.log("Loading ID : " + data.getId());
 
 				data.setUsername(username);
-				Logger.log("Loading Username : " + data.getId());
+				Logger.log("Loading Username : " + data.getUsername());
 				
 				data.setMsg(msg);
-				Logger.log("Loading Msg : " + data.getId());
+				Logger.log("Loading Msg : " + data.getMsg());
 				
 				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 				nData.pack();
