@@ -22,7 +22,7 @@ public class NetworkManager {
 	private final int serverPort = 7070;
 	Socket socket;
 	private LinkedList<ByteBuffer> sendBuffers;
-	private LinkedList<ByteBuffer> readBuffers;
+	private byte readBuffers[];
 	
 	private CommunitySceneControlloer communitySceneController;
 
@@ -36,7 +36,7 @@ public class NetworkManager {
 	}
 	public NetworkManager() {
 		sendBuffers = new LinkedList<ByteBuffer>();
-		readBuffers = new LinkedList<ByteBuffer>();
+//		readBuffers = new LinkedList<ByteBuffer>();
 	}
 	public boolean connect() {
 		try {
@@ -66,11 +66,22 @@ public class NetworkManager {
 		sendBuffers.add(bb);
 	}
 	
+	public void addReadData(byte[] b) {
+		readBuffers = new byte[b.length];
+	}
 	public void read(byte[] b) {
-		ByteBuffer bb = ByteBuffer.allocate(b.length);
-		bb.put(b);
-		NetworkData d = new NetworkData(bb);
-		messageHandler(d);
+		int dataSize = b.length;
+		int readSize = 0;
+		while (dataSize > NetworkData.getNeedDataSize()) {
+			ByteBuffer bb = ByteBuffer.allocate(dataSize);
+			bb.put(b, readSize, dataSize);
+			NetworkData d = new NetworkData(bb);
+			messageHandler(d);
+			Logger.log("length : " + d.getDataSize());
+			readSize = d.getDataSize();
+			dataSize -= readSize;
+			Logger.log("data size : " + dataSize);
+		}
 	}
 	public void messageHandler(NetworkData d) {
 		d.unPack();
@@ -122,7 +133,10 @@ public class NetworkManager {
 					if (sendBuffers.isEmpty()) {
 						
 					} else {
-						out.write(sendBuffers.poll().array());
+						byte b[] = new byte[1024];
+						b = sendBuffers.poll().array();
+						out.write(b);
+						out.flush();
 						Logger.log("write data");
 					}
 					try {
@@ -157,8 +171,15 @@ public class NetworkManager {
 						Logger.log("disconnected");
 						return;
 					}
-					byte b[] = new byte[1024];
-					in.read(b);
+					byte readByte[] = new byte[1024];
+					int result = in.read(readByte);
+					if (result == -1) {
+						socket.close();
+						return;
+					}
+					Logger.log("result : " + result);
+					byte b[] = new byte[result];
+					System.arraycopy(readByte, 0, b, 0, result);
 					read(b);
 					Logger.log("read data : " + b.length);
 				} catch (IOException e) {

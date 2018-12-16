@@ -197,7 +197,11 @@ public class Server {
 		
 		public void send(ByteBuffer bb) {
 			try {
-				out.write(bb.array());
+				Logger.log("");
+				byte b[] = new byte[1024];
+				b = bb.array();
+				out.write(b);
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
