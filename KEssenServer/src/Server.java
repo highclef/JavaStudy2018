@@ -80,10 +80,8 @@ public class Server {
 		}
 
 		public void messageHandler(byte[] b) {
-			Logger.log("byte length : " + b.length);
 			ByteBuffer bb = ByteBuffer.allocate(b.length);
 			bb.put(b);
-			Logger.log("capacity : " + bb.capacity());
 			NetworkData nd = new NetworkData(bb);
 			nd.unPack();
 			nd.printData();
@@ -192,6 +190,10 @@ public class Server {
 //				nData.pack();
 //				nData.toString();
 //				send(nData.getByteBuffer());
+			} else if (nd.getMessageID() == MessageIDs.DELPOSTINGDATA_REQ) {
+				Logger.log("DELPOSTINGDATA_REQ");
+			} else if (nd.getMessageID() == MessageIDs.UPDATEPOSTINGDATA_REQ) {
+				Logger.log("UPDATEPOSTINGDATA_REQ");
 			}
 		}
 		

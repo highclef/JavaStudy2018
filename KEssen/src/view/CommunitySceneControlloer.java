@@ -9,6 +9,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 		// TODO Auto-generated constructor stub
 		NetworkManager.getInstance().setCommunitySceneControlloer(this);
 	}
+
 	@FXML
 	private void initialize() {
 		Logger.log("");
@@ -63,79 +65,6 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 		NetworkData data = new NetworkData(MessageIDs.POSTINGDATALIST_REQ);
 		data.pack();
 		NetworkManager.getInstance().send(data.getByteBuffer());
-		
-//		PostingModel posting1 = new PostingModel();
-//		posting1.setId("abc");
-//		posting1.setMsg("Test1111");
-//
-//		PostingModel posting2 = new PostingModel();
-//		posting2.setId("ID2");
-//		posting2.setMsg("Test2222");
-//
-//		PostingModel posting3 = new PostingModel();
-//		posting3.setId("ID3");
-//		posting3.setMsg("Test3");
-//
-//		PostingModel posting4 = new PostingModel();
-//		posting4.setId("ID4");
-//		posting4.setMsg("Test4");
-//
-//		PostingModel posting5 = new PostingModel();
-//		posting5.setId("ID5");
-//		posting5.setMsg("Test5");
-//
-//		PostingModel posting6 = new PostingModel();
-//		posting6.setId("ID6");
-//		posting6.setMsg("Test6");
-//
-//		PostingModel posting7 = new PostingModel();
-//		posting7.setId("ID7");
-//		posting7.setMsg("Test7");
-//
-//		posting1.setModelId(count++);
-//		postingModelList.add(posting1);
-//		posting2.setModelId(count++);
-//		postingModelList.add(posting2);
-//		posting3.setModelId(count++);
-//		postingModelList.add(posting3);
-//		posting4.setModelId(count++);
-//		postingModelList.add(posting4);
-//		posting5.setModelId(count++);
-//		postingModelList.add(posting5);
-//		posting6.setModelId(count++);
-//		postingModelList.add(posting6);
-//		posting7.setModelId(count++);
-//		postingModelList.add(posting7);
-
-//		GsonBuilder gsonBuilder = new GsonBuilder();
-//		gsonBuilder.setPrettyPrinting();
-//		Gson gson = new Gson();
-//				String result = gson.toJson(modelList, type);
-//		String result = gson.toJson(modelList);
-//		Logger.log(result);
-
-		// insert posting datas
-//		PostingModel[] modelList2 = gson.fromJson(result, PostingModel[].class);
-
-//		Logger.log("modelist size : " + modelList2.length);
-//		for (int i = 0; i < postingModelList.size(); i++) {
-//			Logger.log(i + "=>>" + modelList2[i].getId());
-//			Logger.log(i + "=>>" + postingModelList.get(i).getId());
-//			try {
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(MainApp.class.getResource("../view/PostingItem.fxml"));
-//				AnchorPane node = (AnchorPane) loader.load();
-//
-//				PostingItemController controller = loader.getController();
-//				controller.setID(postingModelList.get(i).getId());
-//				controller.setTextArea(postingModelList.get(i).getMsg());
-//
-//				postingList.getChildren().add(node);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
 	}
 
 	public void addItem() {
@@ -164,26 +93,26 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 		}
 	}
 
-	public void deleteItem(int modelId) {
-		int foundIndex = findModelId(modelId);
+	public void deleteItem(int id) {
+		int foundIndex = findID(id);
 		if (foundIndex < 0) {
 			Logger.log("not found");
 			return;
 		}
 		postingModelList.remove(foundIndex);
 		postingList.getChildren().remove(foundIndex);
-
-//		ObservableList<Node> l = postingList.getChildren();
-//		for (int i = 0; i < l.size(); i++) {
-//			PostingItemController c = (PostingItemController) l.get(i).getUserData();
-//			if (c.getModelId() == modelId) {
-//				Logger.log("modelId : " + modelId);
-//				postingList.getChildren().remove(i);
-//			}
-//		}
+	}
+	
+	public void modifyItem(PostingModel data) {
+		int foundIndex = findID(data.getId());
+		
+		postingModelList.get(foundIndex).setMsg(data.getMsg());
+		PostingItemController c = (PostingItemController) postingList.getChildren().get(foundIndex)
+				.getUserData();
+		c.setTextArea(data.getMsg());
 	}
 
-	public void modifyItem(int modelId) {
+	public void modifyItemDialog(int id) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource(MainApp.POSTWRITINGSCENE));
@@ -198,7 +127,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 			PostWritingSceneController controller = loader.getController();
 			controller.setId(loginId);
-			int foundIndex = findModelId(modelId);
+			int foundIndex = findID(id);
 			if (foundIndex < 0) {
 				Logger.log("not found");
 				return;
@@ -212,19 +141,17 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 			if (controller.isCanceled()) {
 
 			} else {
-				postingModelList.get(foundIndex).setMsg(controller.getTextPost());
-				PostingItemController c = (PostingItemController) postingList.getChildren().get(foundIndex)
-						.getUserData();
-				c.setTextArea(controller.getTextPost());
+				PostingModel pm = postingModelList.get(foundIndex);
+				sendUpdateItem(pm);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public int findModelId(int modelId) {
+	public int findID(int id) {
 		for (int i = 0; i < postingModelList.size(); i++) {
-			if (postingModelList.get(i).getId() == modelId) {
+			if (postingModelList.get(i).getId() == id) {
 				return i;
 			}
 		}
@@ -257,19 +184,32 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 				PostingModel pm = new PostingModel();
 				pm.setUsername(loginId);
 				pm.setMsg(controller.getTextPost());
-				
-				NetworkData d = new NetworkData(1, pm);
-				d.pack();
-				d.printData();
-				Logger.log("capacity : " + d.getByteBuffer().capacity());
-				NetworkManager.getInstance().send(d.getByteBuffer());
+
+				sendAddItem(pm);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void addPostingModel(PostingModel pm) {
 		postingModelList.add(pm);
+	}
+
+	public void sendAddItem(PostingModel data) {
+		NetworkData d = new NetworkData(MessageIDs.ADDPOSTINGDATA_REQ, data);
+		d.pack();
+//		d.printData();
+		NetworkManager.getInstance().send(d.getByteBuffer());
+	}
+	public void sendDeleteItem(int id) {
+		NetworkData d = new NetworkData(MessageIDs.DELPOSTINGDATA_REQ, id);
+		d.pack();
+		NetworkManager.getInstance().send(d.getByteBuffer());
+	}
+	public void sendUpdateItem(PostingModel data) {
+		NetworkData d = new NetworkData(MessageIDs.UPDATEPOSTINGDATA_REQ, data);
+		d.pack();
+		NetworkManager.getInstance().send(d.getByteBuffer());
 	}
 }
