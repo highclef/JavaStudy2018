@@ -3,17 +3,12 @@ package view;
 import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import application.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -153,10 +148,10 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 			PostingItemController controller = loader.getController();
 			controller.setCommunitySceneController(this);
-			controller.setModelId(postingModelList.get(lastIndex).getId());
-			controller.setID(postingModelList.get(lastIndex).getUsername());
+			controller.setId(postingModelList.get(lastIndex).getId());
+			controller.setUsername(postingModelList.get(lastIndex).getUsername());
 			controller.setTextArea(postingModelList.get(lastIndex).getMsg());
-			if (loginId.equals(controller.getID())) {
+			if (loginId.equals(controller.getUsername())) {
 				controller.setButtonBarVisible(true);
 			} else {
 				controller.setButtonBarVisible(false);

@@ -1,24 +1,15 @@
 package view;
 
-import java.io.IOException;
-
-import application.MainApp;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import model.PostingModel;
 
 public class PostingItemController {
 	private CommunitySceneControlloer csc;
-	private int modelId;
+	private int id;
 	@FXML
-	Label id;
+	Label username;
 	@FXML
 	TextArea ta;
 	@FXML
@@ -33,24 +24,24 @@ public class PostingItemController {
 		csc = c;
 	}
 
-	public void setModelId(int id) {
-		modelId = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getModelId() {
-		return modelId;
+	public int getId() {
+		return id;
 	}
 
-	public void setID(String id) {
-		this.id.setText(id);
+	public void setUsername(String username) {
+		this.username.setText(username);
 	}
 
 	public void setTextArea(String text) {
 		this.ta.setText(text);
 	}
 
-	public String getID() {
-		return id.getText();
+	public String getUsername() {
+		return username.getText();
 	}
 
 	public String getTextArea() {
@@ -63,11 +54,11 @@ public class PostingItemController {
 
 	@FXML
 	private void onDeleteBtn() {
-		csc.deleteItem(modelId);
+		csc.deleteItem(id);
 	}
 
 	@FXML
 	private void onModifyBtn() {
-		csc.modifyItem(modelId);
+		csc.modifyItem(id);
 	}
 }

@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="100.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PostingItemController">
    <children>
-      <Label fx:id="id" layoutX="68.0" layoutY="6.0" text="ID" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="username" layoutX="68.0" layoutY="6.0" text="ID" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font></Label>
