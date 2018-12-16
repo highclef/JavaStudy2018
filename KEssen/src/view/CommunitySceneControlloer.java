@@ -153,8 +153,8 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 			PostingItemController controller = loader.getController();
 			controller.setCommunitySceneController(this);
-			controller.setModelId(postingModelList.get(lastIndex).getModelId());
-			controller.setID(postingModelList.get(lastIndex).getId());
+			controller.setModelId(postingModelList.get(lastIndex).getId());
+			controller.setID(postingModelList.get(lastIndex).getUsername());
 			controller.setTextArea(postingModelList.get(lastIndex).getMsg());
 			if (loginId.equals(controller.getID())) {
 				controller.setButtonBarVisible(true);
@@ -229,7 +229,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 	public int findModelId(int modelId) {
 		for (int i = 0; i < postingModelList.size(); i++) {
-			if (postingModelList.get(i).getModelId() == modelId) {
+			if (postingModelList.get(i).getId() == modelId) {
 				return i;
 			}
 		}
@@ -260,7 +260,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 			} else {
 				PostingModel pm = new PostingModel();
-				pm.setId(loginId);
+				pm.setUsername(loginId);
 				pm.setMsg(controller.getTextPost());
 				
 				NetworkData d = new NetworkData(1, pm);

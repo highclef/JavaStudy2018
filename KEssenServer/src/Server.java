@@ -113,8 +113,8 @@ public class Server {
 					send(nData.getByteBuffer());
 				}
 			} else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
-				PostingModel data = new PostingModel();
-				data = nd.dataFromJson(data);
+//				PostingModel data = new PostingModel();
+//				data = nd.dataFromJson(data);
 				
 //				Method 1
 //				
@@ -145,6 +145,7 @@ public class Server {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 					
 					while(dbConnection.getRs().next()) {
+						PostingModel data = new PostingModel();
 						int id = dbConnection.getRs().getInt("id");
 						data.setId(id);
 						Logger.log("Loading ID : " + data.getId());
@@ -156,6 +157,11 @@ public class Server {
 						String msg = dbConnection.getRs().getString("msg");
 						data.setMsg(msg);
 						Logger.log("Loading Msg : " + data.getMsg());
+						
+						NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+						nData.pack();
+						nData.toString();
+						send(nData.getByteBuffer());
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -182,10 +188,10 @@ public class Server {
 //					Logger.log("Loading Msg : " + data.getMsg());
 //				}
 				
-				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
-				nData.pack();
-				nData.toString();
-				send(nData.getByteBuffer());
+//				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+//				nData.pack();
+//				nData.toString();
+//				send(nData.getByteBuffer());
 			}
 		}
 		
