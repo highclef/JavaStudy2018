@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="560.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CommunitySceneControlloer">
+<AnchorPane prefHeight="560.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CommunitySceneControlloer">
    <children>
       <Label layoutX="82.0" layoutY="14.0" text="포스트" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -15,11 +15,11 @@
          </font>
       </Label>
       <Button layoutX="496.0" layoutY="561.0" mnemonicParsing="false" onAction="#onWriteText" text="글쓰기" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="10.0" />
-      <ScrollPane focusTraversable="false" layoutX="214.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+      <ScrollPane focusTraversable="false" layoutX="214.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <content>
-            <AnchorPane prefHeight="488.0" prefWidth="788.0">
+            <AnchorPane prefHeight="488.0" prefWidth="780.0">
                <children>
-                  <VBox fx:id="postingList" focusTraversable="true" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox fx:id="postingList" focusTraversable="true" layoutY="12.0" prefHeight="476.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </content>
