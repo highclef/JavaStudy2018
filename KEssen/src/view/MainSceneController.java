@@ -60,7 +60,7 @@ public class MainSceneController {
 			controller.setMyNode(pane);
 			
 			SceneController.getInstance().showAndAllHideRequest(controller);
-			Logger.log("");
+//			Logger.log("");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,8 +100,10 @@ public class MainSceneController {
 
 	@FXML
 	private void onHomeTabSelected() {
-		initTabContent();
-		showHomeScene();
+		if (homeTab.isSelected()) {
+			initTabContent();
+			showHomeScene();
+		}
 	}
 	
 	@FXML
@@ -111,14 +113,19 @@ public class MainSceneController {
 	
 	@FXML
 	private void onInformationTabSelected() {
-		initTabContent();
-		showinformation();
+		if (informationTab.isSelected()) {
+			initTabContent();
+			showinformation();
+		}
 	}
 	
 	@FXML
 	private void onCommunityTabSelected() {
-		initTabContent();
-		showCommunityScene();
+		Logger.log(" selected !! : " + communityTab.isSelected());
+		if (communityTab.isSelected()) {
+			initTabContent();
+			showCommunityScene();
+		}
 	}
 	
 	@FXML

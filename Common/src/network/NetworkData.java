@@ -119,6 +119,22 @@ public class NetworkData implements Cloneable{
 	public ByteBuffer getByteBuffer() {
 		return dataBuffer;
 	}
+	
+	public int getDataSize() {
+		int byteSize = (HEADERNAME.length()) + 
+				(Integer.BYTES) + 
+				(data.length()) +
+				(Integer.BYTES) +
+				(Long.BYTES);
+		return byteSize;
+	}
+	public static int getNeedDataSize() {
+		int size = (HEADERNAME.length()) + 
+				(Integer.BYTES) +
+				(Integer.BYTES) +
+				(Long.BYTES);
+		return size;
+	}
 	public <T> T dataFromJson(T d) {
 		Gson gson = new Gson();
 		T data = (T)gson.fromJson(this.data, d.getClass());

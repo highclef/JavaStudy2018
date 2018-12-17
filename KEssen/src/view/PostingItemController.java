@@ -54,11 +54,12 @@ public class PostingItemController {
 
 	@FXML
 	private void onDeleteBtn() {
-		csc.deleteItem(id);
+//		csc.deleteItem(id);
+		csc.sendDeleteItem(id);
 	}
 
 	@FXML
 	private void onModifyBtn() {
-		csc.modifyItem(id);
+		csc.modifyItemDialog(id);
 	}
 }
