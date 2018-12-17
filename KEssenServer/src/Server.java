@@ -104,32 +104,14 @@ public class Server {
 				if (count == 0) {
 					System.out.println("Data Insert Failure");
 				} else {
-					System.out.println("Data Insert Success\n");
+					System.out.println("Data Insert Success");
 					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
 					nData.pack();
 					nData.toString();
 					send(nData.getByteBuffer());
 				}
+				
 			} else if (nd.getMessageID() == MessageIDs.POSTINGDATALIST_REQ) {
-//				PostingModel data = new PostingModel();
-//				data = nd.dataFromJson(data);
-				
-//				Method 1
-//				
-//				String SQL = "SELECT id FROM kessen.postingmodel";
-//				dbConnection.getRs(st.executeQuery(SQL));
-//				
-//				int rowCount = rs.getInt(1);
-				
-				
-//				Method 2
-//				dbConnection.getSt(con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE));
-//				dbConnection.getRs(st.executeQuery("SELECT COL_01, COL_02 FROM kessen.postingmodel"));
-//				dbConnection.getRs().last();
-//				
-//				int rowCount = dbConnection.getRs().getRow();
-				
-//				Method 3
 				String SQL = "SELECT * FROM kessen.postingmodel";
 				try {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
@@ -166,34 +148,56 @@ public class Server {
 					e.printStackTrace();
 				}
 				
-//				for (Iterator i=1;i<count;i++) {
-//					SQL = "SELECT id FROM kessen.postingmodel WHERE id = " + i;
-//					rs = st.executeQuery(SQL);
-//					Int id = rs.getInt(1);
-//					data.setId(id);
-//					Logger.log("Loading ID : " + data.getId());
-//					
-//					SQL = "SELECT username FROM kessen.postingmodel WHERE id = " + i;
-//					rs = st.executeQuery(SQL);
-//					String username = rs.getString(1);
-//					data.setUsername(username);
-//					Logger.log("Loading Username : " + data.getUsername());
-//					
-//					SQL = "SELECT msg FROM kessen.postingmodel WHERE id = " + i;
-//					rs = st.executeQuery(SQL);
-//					String msg = rs.getString(1);
-//					data.setMsg(msg);
-//					Logger.log("Loading Msg : " + data.getMsg());
-//				}
-				
-//				NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
-//				nData.pack();
-//				nData.toString();
-//				send(nData.getByteBuffer());
 			} else if (nd.getMessageID() == MessageIDs.DELPOSTINGDATA_REQ) {
-				Logger.log("DELPOSTINGDATA_REQ");
+//				Logger.log("DELPOSTINGDATA_REQ");
+				PostingModel data = new PostingModel();
+				data = nd.dataFromJson(data);
+				Logger.log("Deleting ID : " + data.getId());
+				
+				String SQL = "DELETE FROM kessen.postingmodel WHERE (id = '" + data.getId() + "')";
+				
+				int count = 0;
+				try {
+					count = dbConnection.getSt().executeUpdate(SQL);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				if (count == 0) {
+					Logger.log("Data Delete Failure");
+				} else {
+					Logger.log("Data Delete Success");
+					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+					nData.pack();
+					nData.toString();
+					send(nData.getByteBuffer());
+				}
+				
 			} else if (nd.getMessageID() == MessageIDs.UPDATEPOSTINGDATA_REQ) {
-				Logger.log("UPDATEPOSTINGDATA_REQ");
+//				Logger.log("UPDATEPOSTINGDATA_REQ");
+				PostingModel data = new PostingModel();
+				data = nd.dataFromJson(data);
+				Logger.log("Object ID : " + data.getId());
+				Logger.log("Updating Msg to.. " + data.getMsg());
+				
+				String SQL = "UPDATE `kessen`.`postingmodel` SET `msg` = '" + data.getMsg() + "' WHERE (`id` = '" + data.getId() + "')";
+				
+				int count = 0;
+				try {
+					count = dbConnection.getSt().executeUpdate(SQL);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				if (count == 0) {
+					Logger.log("Data Update Failure");
+				} else {
+					Logger.log("Data Update Success");
+					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+					nData.pack();
+					nData.toString();
+					send(nData.getByteBuffer());
+				}
 			}
 		}
 		
