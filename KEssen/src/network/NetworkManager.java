@@ -72,21 +72,22 @@ public class NetworkManager {
 	public void read(byte[] b) {
 		int dataSize = b.length;
 		int readSize = 0;
-		while (dataSize > NetworkData.getNeedDataSize()) {
+		
+		while ((dataSize - readSize) > NetworkData.getNeedDataSize()) {
 			ByteBuffer bb = ByteBuffer.allocate(dataSize);
-			bb.put(b, readSize, dataSize);
+			bb.put(b, readSize, dataSize-readSize);
 			NetworkData d = new NetworkData(bb);
+			d.unPack();
+			d.printData();
 			messageHandler(d);
 			Logger.log("length : " + d.getDataSize());
-			readSize = d.getDataSize();
-			dataSize -= readSize;
-			Logger.log("data size : " + dataSize);
+			readSize += d.getDataSize();
+//			dataSize -= readSize;
+			Logger.log("read size : " + readSize);
 		}
+		Logger.log("read finished");
 	}
-	public void messageHandler(NetworkData d) {
-		d.unPack();
-		d.printData();
-		
+	public void messageHandler(NetworkData d) {		
 		Logger.log("read message id : " + d.getMessageID());
 		if (d.getMessageID() == MessageIDs.ADDPOSTRINGDATA_RES) {
 			Platform.runLater(new Runnable() {
@@ -96,6 +97,28 @@ public class NetworkManager {
 					PostingModel pm = new PostingModel();
 					pm = d.dataFromJson(pm);
 					communitySceneController.addPostingModel(pm); 
+				}
+			});
+		} else if (d.getMessageID() == MessageIDs.DELPOSTINGDATA_RES) {
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					int id = 0;
+					id = d.dataFromJson(id);
+					communitySceneController.deleteItem(id);
+				}
+			});
+		} else if (d.getMessageID() == MessageIDs.UPDATEPOSTINGDATA_RES) {
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					PostingModel pm = new PostingModel();
+					pm = d.dataFromJson(pm);
+					communitySceneController.modifyItem(pm);
 				}
 			});
 		}
@@ -174,6 +197,7 @@ public class NetworkManager {
 					byte readByte[] = new byte[1024];
 					int result = in.read(readByte);
 					if (result == -1) {
+						Logger.log("socket error, scoket close");
 						socket.close();
 						return;
 					}

@@ -142,6 +142,7 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 			} else {
 				PostingModel pm = postingModelList.get(foundIndex);
+				pm.setMsg(controller.getTextPost());
 				sendUpdateItem(pm);
 			}
 		} catch (IOException e) {

@@ -150,11 +150,11 @@ public class Server {
 				
 			} else if (nd.getMessageID() == MessageIDs.DELPOSTINGDATA_REQ) {
 //				Logger.log("DELPOSTINGDATA_REQ");
-				PostingModel data = new PostingModel();
-				data = nd.dataFromJson(data);
-				Logger.log("Deleting ID : " + data.getId());
+				int id = 0;
+				id = nd.dataFromJson(id);
+				Logger.log("Deleting ID : " + id);
 				
-				String SQL = "DELETE FROM kessen.postingmodel WHERE (id = '" + data.getId() + "')";
+				String SQL = "DELETE FROM kessen.postingmodel WHERE (id = '" + id + "')";
 				
 				int count = 0;
 				try {
@@ -167,7 +167,7 @@ public class Server {
 					Logger.log("Data Delete Failure");
 				} else {
 					Logger.log("Data Delete Success");
-					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+					NetworkData nData = new NetworkData(MessageIDs.DELPOSTINGDATA_RES, id);
 					nData.pack();
 					nData.toString();
 					send(nData.getByteBuffer());
@@ -193,7 +193,7 @@ public class Server {
 					Logger.log("Data Update Failure");
 				} else {
 					Logger.log("Data Update Success");
-					NetworkData nData = new NetworkData(MessageIDs.ADDPOSTRINGDATA_RES, data);
+					NetworkData nData = new NetworkData(MessageIDs.UPDATEPOSTINGDATA_RES, data);
 					nData.pack();
 					nData.toString();
 					send(nData.getByteBuffer());
