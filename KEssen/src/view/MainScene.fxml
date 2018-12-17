@@ -15,6 +15,7 @@
             <Tab fx:id="loginTab" onSelectionChanged="#onLoginTabSelected" text="로그인" />
             <Tab fx:id="informationTab" onSelectionChanged="#onInformationTabSelected" text="한식당 정보" />
             <Tab fx:id="communityTab" onSelectionChanged="#onCommunityTabSelected" text="커뮤니티" />
+            <Tab fx:id="reviewTab" onSelectionChanged="#onReviewTabSelected" text="리뷰 쓰기" />
          </tabs>
       </TabPane>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

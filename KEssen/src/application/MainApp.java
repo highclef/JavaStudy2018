@@ -23,6 +23,7 @@ public class MainApp extends Application {
 	public static final String POSTWRITINGSCENE = "../view/PostWritingScene.fxml";
 	public static final String REVIEWFIRST = "../view/ReviewFirst.fxml";
 	public static final String REVIEWSECOND = "../view/ReviewSecond.fxml";
+	public static final String INFORMATIONSCENE = "../view/ListOverview.fxml";
 
 	Stage primaryStage;
 	private AnchorPane rootLayout;

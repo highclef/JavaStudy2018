@@ -22,6 +22,8 @@ public class MainSceneController {
 	Tab informationTab;
 	@FXML
 	Tab communityTab;
+	@FXML
+	Tab reviewTab;
 
 	@FXML
 	private void initialize() {
@@ -66,13 +68,13 @@ public class MainSceneController {
 		}
 	}
 
-	public void showinformation() {
+	public void showInformationScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource(MainApp.REVIEWFIRST));
+			loader.setLocation(MainApp.class.getResource(MainApp.INFORMATIONSCENE));
 			Node pane = loader.load();
 
-			ReviewFirstController controller = loader.getController();
+			InformationOverviewController controller = loader.getController();
 			controller.setMyTab(informationTab);
 			controller.setMyNode(pane);
 
@@ -82,6 +84,24 @@ public class MainSceneController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showReviewScene() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.REVIEWFIRST));
+			Node pane = loader.load();
+
+			ReviewFirstController controller = loader.getController();
+			controller.setMyTab(reviewTab);
+			controller.setMyNode(pane);
+
+			SceneController.getInstance().showAndAllHideRequest(controller);
+			Logger.log("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	public void initTabContent() {
 		if (homeTab != null) {
@@ -96,6 +116,9 @@ public class MainSceneController {
 		if (communityTab != null) {
 			communityTab.setContent(null);
 		}
+		if (reviewTab != null) {
+			reviewTab.setContent(null);
+		}
 	}
 
 	@FXML
@@ -108,14 +131,14 @@ public class MainSceneController {
 	
 	@FXML
 	private void onLoginTabSelected() {
-		initTabContent();
+//		initTabContent();
 	}
 	
 	@FXML
 	private void onInformationTabSelected() {
 		if (informationTab.isSelected()) {
 			initTabContent();
-			showinformation();
+			showInformationScene();
 		}
 	}
 	
@@ -127,7 +150,13 @@ public class MainSceneController {
 			showCommunityScene();
 		}
 	}
-	
+	@FXML
+	private void onReviewTabSelected() {
+		if (reviewTab.isSelected()) {
+			initTabContent();
+			showReviewScene();
+		}
+	}
 	@FXML
 	private void onModifyInfo() {
 		Logger.log("");
