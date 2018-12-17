@@ -1,27 +1,18 @@
 package application;
 
-import model.Member;
-import network.NetworkData;
-import network.NetworkManager;
-import view.MainSceneController;
-import view.RootLayoutController;
-
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import network.NetworkManager;
 import util.Logger;
+import view.MainSceneController;
+import view.RootLayoutController;
 
 public class MainApp extends Application {
 	public static final String SCENE_ROOTLAYOUT = "../view/RootLayout.fxml";
