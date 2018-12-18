@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginController">
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <Text fx:id="lblStatus" fill="#064e99" strokeType="OUTSIDE" strokeWidth="0.0" text="로 그 인 " textAlignment="CENTER" wrappingWidth="105.390625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="400.0">
+         <children>
+            <TextField fx:id="txtUserName" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="UserName">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <PasswordField fx:id="txtPassword" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="Password" />
+         </children>
+      </HBox>
+      <StackPane prefHeight="79.0" prefWidth="400.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onLogin" prefHeight="50.0" prefWidth="75.0" text="Login" />
+         </children>
+      </StackPane>
+      <StackPane prefHeight="61.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="회원가입을 원하시나요?" />
+         </children>
+      </StackPane>
+      <StackPane prefHeight="79.0" prefWidth="400.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#Anmeldung" prefHeight="50.0" prefWidth="75.0" text="Anmelden" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>

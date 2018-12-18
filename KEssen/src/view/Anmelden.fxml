@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   -회원가입" />
+         </children>
+      </StackPane>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  이름 : ">
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField prefHeight="20.0" prefWidth="190.0" promptText="이름을 입력하세요" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  생년월일 : ">
+               <HBox.margin>
+                  <Insets right="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <SplitMenuButton mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="년도">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </SplitMenuButton>
+            <SplitMenuButton mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="월">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </SplitMenuButton>
+            <SplitMenuButton mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="일">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </SplitMenuButton>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  사는 지역 : ">
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <SplitMenuButton mnemonicParsing="false" prefHeight="20.0" prefWidth="190.0" text="도시 선택" textAlignment="CENTER">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </SplitMenuButton>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  아이디 : ">
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField prefHeight="23.0" prefWidth="189.0" promptText="메일주소를 입력하세요" />
+            <Button mnemonicParsing="false" text="중복확인">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  비밀 번호 : ">
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <PasswordField prefHeight="20.0" prefWidth="190.0" promptText="비밀번호를 입력하세요">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="27.0" />
+               </HBox.margin>
+            </PasswordField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  비밀 번호 확인 : ">
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <PasswordField prefHeight="20.0" prefWidth="190.0" promptText="비밀번호 재확인" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="400.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <children>
+            <Button mnemonicParsing="false" text="회원가입 완료" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

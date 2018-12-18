@@ -12,9 +12,12 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import javafx.application.Platform;
+import model.LoginModel;
 import model.PostingModel;
+import model.StaticModelData;
 import util.Logger;
 import view.CommunitySceneControlloer;
+import view.LoginController;
 
 
 public class NetworkManager {
@@ -25,6 +28,7 @@ public class NetworkManager {
 	private byte readBuffers[];
 	
 	private CommunitySceneControlloer communitySceneController;
+	private LoginController loginController;
 
 	private static NetworkManager instance = null;
 	
@@ -121,12 +125,30 @@ public class NetworkManager {
 					communitySceneController.modifyItem(pm);
 				}
 			});
+		} else if (d.getMessageID() == MessageIDs.LOGIN_RES) {
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					LoginModel l = StaticModelData.getInstance().getLoginModel();
+					l = d.dataFromJson(l);
+					if (l.logined()) {
+						loginController.loginSuccess();
+					} else {
+						loginController.loginFailure();
+					}
+				}
+			});
 		}
 		
 	}
 	
 	public void setCommunitySceneControlloer(CommunitySceneControlloer c) {
 		communitySceneController = c;
+	}
+	public void setLoginController(LoginController c) {
+		loginController = c;
 	}
 	public LinkedList<ByteBuffer> getSendBuffers() {
 		return sendBuffers;

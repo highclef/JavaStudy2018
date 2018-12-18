@@ -198,6 +198,11 @@ public class Server {
 					nData.toString();
 					send(nData.getByteBuffer());
 				}
+			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
+				// to do : check id, password from DB
+				// has id, password => setLogined true from LoginModel
+				// has not id, password => setLogined false from LoginModel
+				// send to client with LOGIN_RES with LoginModel
 			}
 		}
 		

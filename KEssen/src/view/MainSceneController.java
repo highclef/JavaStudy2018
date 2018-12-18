@@ -50,7 +50,21 @@ public class MainSceneController {
 			e.printStackTrace();
 		}
 	}
+	public void showLoginScene() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.LOGINSCENE));
+			Node pane = (Node) loader.load();
 
+			LoginController controller = loader.getController();
+			controller.setMyTab(loginTab);
+			controller.setMyNode(pane);
+			
+			SceneController.getInstance().showAndAllHideRequest(controller);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void showCommunityScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -131,7 +145,10 @@ public class MainSceneController {
 	
 	@FXML
 	private void onLoginTabSelected() {
-//		initTabContent();
+		if (loginTab.isSelected()) {
+			initTabContent();
+			showLoginScene();
+		}
 	}
 	
 	@FXML

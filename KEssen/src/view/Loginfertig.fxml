@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <Text fill="#064e99" strokeType="OUTSIDE" strokeWidth="0.0" text="Willkommen" textAlignment="CENTER" wrappingWidth="167.390625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="dlsdk0601@gmail.com" textAlignment="CENTER" wrappingWidth="177.12109375" />
+         </children>
+      </HBox>
+      <StackPane prefHeight="61.0" prefWidth="400.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="정보 수정을 원하시나요?" />
+         </children>
+      </StackPane>
+      <StackPane prefHeight="61.0" prefWidth="400.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cacdd0" height="50.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Label text="Zurückmelden" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>
