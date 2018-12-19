@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+import model.LoginModel;
 import model.PostingModel;
 import network.MessageIDs;
 import network.NetworkData;
@@ -121,9 +122,6 @@ public class Server {
 	
 					System.out.println("Row Count: " + rowCount);
 					
-					SQL = "SELECT * FROM kessen.postingmodel";
-					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
-					
 					while(dbConnection.getRs().next()) {
 						PostingModel data = new PostingModel();
 						int id = dbConnection.getRs().getInt("id");
@@ -178,7 +176,7 @@ public class Server {
 				PostingModel data = new PostingModel();
 				data = nd.dataFromJson(data);
 				Logger.log("Object ID : " + data.getId());
-				Logger.log("Updating Msg to.. " + data.getMsg());
+				Logger.log("Updating Msg to: " + data.getMsg());
 				
 				String SQL = "UPDATE `kessen`.`postingmodel` SET `msg` = '" + data.getMsg() + "' WHERE (`id` = '" + data.getId() + "')";
 				
@@ -203,6 +201,42 @@ public class Server {
 				// has id, password => setLogined true from LoginModel
 				// has not id, password => setLogined false from LoginModel
 				// send to client with LOGIN_RES with LoginModel
+				LoginModel data = new LoginModel();
+				
+				Logger.log("Login Session");
+				String SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "'";
+				try {
+					int loginIdCount = 0;
+					loginIdCount = dbConnection.getSt().executeUpdate(SQL);
+					
+					if(loginIdCount == 0) {
+						Logger.log("ID or Password Error");
+						data.setLogined(false);
+					}
+					else {
+						SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "' and password = '" + data.getPassword() + "'"; 
+						int loginPwCount = 0;
+						loginPwCount = dbConnection.getSt().executeUpdate(SQL);
+						
+						if(loginPwCount == 0) {
+							Logger.log("ID or Password Error");
+							data.setLogined(false);
+						}
+						else {
+							Logger.log("Login Success");
+							data.setLogined(true);
+							Logger.log("User ID: " + data.getUserId());
+							Logger.log("Password: " + data.getPassword());
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				NetworkData nData = new NetworkData(MessageIDs.LOGIN_RES, data);
+				nData.pack();
+				nData.toString();
+				send(nData.getByteBuffer());
 			}
 		}
 		
