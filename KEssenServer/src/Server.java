@@ -31,6 +31,7 @@ public class Server {
 		Socket socket = null;
 		try {
 			serverSocket = new ServerSocket(7070);
+			Logger.log("Server Ver. 0.1");
 			System.out.println(getTime() + "waiting connection..");
 			while (true) {
 				socket = serverSocket.accept();
