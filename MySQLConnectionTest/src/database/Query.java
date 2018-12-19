@@ -59,19 +59,22 @@ public class Query extends Member {
 		}
 	}
 	
-	public void select (String objectData, String targetData, String sourceData) {
+	public void select () {
 		try {
 			Query.QueryInfo queryInfo = new QueryInfo();
-			String tableName = queryInfo.getTableName();
+//			String tableName = queryInfo.getTableName();
 			
 			System.out.println("Search Process\n");
 			
-			SQL = "SELECT " + objectData + " FROM " + tableName + " WHERE " + targetData + " = '" + sourceData + "'";
+			SQL = "SELECT * FROM kessen.memberinfo WHERE username = 'highclef' and password = '12345'";
 			rs = st.executeQuery(SQL);
 			if(rs.next()) {
 				System.out.println(rs.getString(1));
+				System.out.println("Name Search Success");	
 			}
-			System.out.println("Name Search Success");			
+			else {
+				System.out.println("Name Search Failure");
+			}			
 			}
 		catch(Exception e) {
 			System.out.println("Database Search Error: " + e.getMessage());

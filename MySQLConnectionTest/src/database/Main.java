@@ -6,14 +6,10 @@ public class Main extends DBConnection {
 		Query query = new Query();
 		
 		
-		// query.getTableName();
+		query.select();
 		
-		// query.select();
-		
-		// query.insert();
-		
-		System.out.println("Connection Close");
-		con.close();
+//		System.out.println("Connection Close");
+//		con.close();
 	}
 
 }
