@@ -196,7 +196,8 @@ public class Server {
 					nData.toString();
 					send(nData.getByteBuffer());
 				}
-			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
+//			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
+			} else if (nd.getMessageID() == 5) {
 				// TODO check id, password from DB
 				// has id, password => setLogined true from LoginModel
 				// has not id, password => setLogined false from LoginModel
@@ -204,35 +205,32 @@ public class Server {
 				LoginModel data = new LoginModel();
 				
 				Logger.log("Login Session");
-				String SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "'";
+				String SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "' and password = '" + data.getPassword() + "'";
+				
 				try {
-					int loginIdCount = 0;
-					loginIdCount = dbConnection.getSt().executeUpdate(SQL);
 					
-					if(loginIdCount == 0) {
+					int loginCount = 0;
+					loginCount = dbConnection.getSt().executeUpdate(SQL);
+					
+					if(loginCount == 0) {
+						
 						Logger.log("ID or Password Error");
 						data.setLogined(false);
 					}
 					else {
-						SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "' and password = '" + data.getPassword() + "'"; 
-						int loginPwCount = 0;
-						loginPwCount = dbConnection.getSt().executeUpdate(SQL);
-						
-						if(loginPwCount == 0) {
-							Logger.log("ID or Password Error");
-							data.setLogined(false);
-						}
-						else {
-							Logger.log("Login Success");
-							data.setLogined(true);
-							Logger.log("User ID: " + data.getUserId());
-							Logger.log("Password: " + data.getPassword());
-						}
+
+						Logger.log("Login Success");
+						data.setLogined(true);
+						Logger.log("User ID: " + data.getUserId());
+						Logger.log("Password: " + data.getPassword());
+					
 					}
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 				NetworkData nData = new NetworkData(MessageIDs.LOGIN_RES, data);
 				nData.pack();
 				nData.toString();
