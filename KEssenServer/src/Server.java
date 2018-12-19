@@ -204,6 +204,7 @@ public class Server {
 				// has not id, password => setLogined false from LoginModel
 				// send to client with LOGIN_RES with LoginModel
 				LoginModel data = new LoginModel();
+				data = nd.dataFromJson(data);
 				
 				Logger.log("Login Session");
 				Logger.log("User ID: " + data.getUserId());
