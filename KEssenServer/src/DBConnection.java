@@ -12,11 +12,20 @@ public class DBConnection {
 	static private final String USERNAME = "test";
 	static private final String PASSWORD = "ehrdlftmxjel";
 	
+
 	protected static Connection con;
-
-
 	protected Statement st;
 	protected ResultSet rs;
+
+
+	public static Connection getCon() {
+		return con;
+	}
+
+	public static void setCon(Connection con) {
+		DBConnection.con = con;
+	}
+
 	
 	public Statement getSt() {
 		return st;

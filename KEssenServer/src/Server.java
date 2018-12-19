@@ -31,7 +31,7 @@ public class Server {
 		Socket socket = null;
 		try {
 			serverSocket = new ServerSocket(7070);
-			Logger.log("Server Ver. 0.1");
+			Logger.log("Server Ver. 0.3");
 			System.out.println(getTime() + "waiting connection..");
 			while (true) {
 				socket = serverSocket.accept();
@@ -197,8 +197,8 @@ public class Server {
 					nData.toString();
 					send(nData.getByteBuffer());
 				}
-//			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
-			} else if (nd.getMessageID() == 5) {
+			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
+//			} else if (nd.getMessageID() == 5) {
 				// TODO check id, password from DB
 				// has id, password => setLogined true from LoginModel
 				// has not id, password => setLogined false from LoginModel
@@ -206,31 +206,54 @@ public class Server {
 				LoginModel data = new LoginModel();
 				
 				Logger.log("Login Session");
+				Logger.log("User ID: " + data.getUserId());
+				Logger.log("Password: " + data.getPassword());
+				
 				String SQL = "SELECT * FROM kessen.memberinfo WHERE username = '" + data.getUserId() + "' and password = '" + data.getPassword() + "'";
 				
 				try {
+					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 					
-					int loginCount = 0;
-					loginCount = dbConnection.getSt().executeUpdate(SQL);
+//					int loginCount = 0;
+//					loginCount = dbConnection.getRs().getRow();
 					
-					if(loginCount == 0) {
+					if(dbConnection.getRs().next()) {
+						
+						Logger.log("Login Success");
+						Logger.log("SQL username: " + dbConnection.getRs().getString("username"));
+						Logger.log("SQL password: " + dbConnection.getRs().getString("password"));
+						data.setLogined(true);
+						
+					}
+					else {
 						
 						Logger.log("ID or Password Error");
 						data.setLogined(false);
-					}
-					else {
-
-						Logger.log("Login Success");
-						data.setLogined(true);
-						Logger.log("User ID: " + data.getUserId());
-						Logger.log("Password: " + data.getPassword());
-					
+						
 					}
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
+//				finally {
+//					try {
+//						   dbConnection.getRs().close();
+//					   } catch (Exception e) {
+//						   
+//					   }
+//					   try {
+//						   dbConnection.getSt().close();
+//					   } catch (Exception e) {
+//						   
+//					   }
+//					   try {
+//						   DBConnection.getCon().close();
+//					   } catch (Exception e) {
+//						   
+//					   }
+//				  }
+		
 				
 				NetworkData nData = new NetworkData(MessageIDs.LOGIN_RES, data);
 				nData.pack();
