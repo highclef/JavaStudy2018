@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import model.LoginModel;
+import model.MemberModel;
 import model.PostingModel;
 import network.MessageIDs;
 import network.NetworkData;
@@ -124,6 +125,7 @@ public class Server {
 					System.out.println("Row Count: " + rowCount);
 					
 					while(dbConnection.getRs().next()) {
+						
 						PostingModel data = new PostingModel();
 						Logger.log("data read from DB");
 						int id = dbConnection.getRs().getInt("id");
@@ -142,6 +144,7 @@ public class Server {
 						nData.pack();
 						nData.toString();
 						send(nData.getByteBuffer());
+						
 					}
 				} catch (SQLException e) {
 
@@ -259,6 +262,50 @@ public class Server {
 				send(nData.getByteBuffer());
 			} else if (nd.getMessageID() == MessageIDs.MEMBERLIST_REQ) {
 				// TODO
+				
+				String SQL = "SELECT * FROM kessen.memberinfo";
+				try {
+					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
+				
+					int rowCount = dbConnection.getRs().getRow();
+	
+					System.out.println("Row Count: " + rowCount);
+					
+					while(dbConnection.getRs().next()) {
+
+						MemberModel data = new MemberModel();
+						Logger.log("data read from DB");
+						String username = dbConnection.getRs().getString("username");
+						data.setUsername(username);
+						Logger.log("Member Username: " + data.getUsername());
+						
+						String password = dbConnection.getRs().getString("password");
+						data.setPassword(password);
+						Logger.log("Member Password: " + data.getPassword());
+						
+						String name = dbConnection.getRs().getString("name");
+						data.setName(name);
+						Logger.log("Member Name: " + data.getName());
+						
+						String birthday = dbConnection.getRs().getString("birthday");
+						data.setBirthday(birthday);
+						Logger.log("Member Birthday: " + data.getBirthday());
+						
+						String city = dbConnection.getRs().getString("city");
+						data.setCity(city);
+						Logger.log("Member City: " + data.getCity());
+						
+						NetworkData nData = new NetworkData(MessageIDs.ADDMEMBERLIST_RES , data);
+						nData.pack();
+						nData.toString();
+						send(nData.getByteBuffer());
+						
+					}
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+
 			}
 		}
 		

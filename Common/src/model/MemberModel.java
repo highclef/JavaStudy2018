@@ -4,9 +4,8 @@ public class MemberModel {
 	String username;
 	String password;
 	String name;
-	int age;
-	String email;
-	String gender;
+	String birthday;
+	String city;
 	
 	public MemberModel() {
 		
@@ -36,27 +35,20 @@ public class MemberModel {
 		this.name = name;
 	}
 
-	public int getAge() {
-		return age;
+	public String getBirthday() {
+		return birthday;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCity() {
+		return city;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 }
