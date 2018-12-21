@@ -119,10 +119,10 @@ public class StatisticsController implements Initializable {
 			}
 	// 뒤로가기 버튼
 	@FXML
-	private Button returnButton;
+	private Button backButton;
 
-	public void BackgoAction() {
-		Stage stage = (Stage) returnButton.getScene().getWindow(); // 스테이지2
+	public void BackButtonAction() {
+		Stage stage = (Stage) backButton.getScene().getWindow(); // 스테이지2
 		Logger.log("뒤로가기 버튼");
 		try {
 
@@ -144,7 +144,7 @@ public class StatisticsController implements Initializable {
 	}
 	
 	@FXML
-	private Button exxButton1;
+	private Button exitButton;
 	
 	public void exitButtonAction(ActionEvent event)
 	{

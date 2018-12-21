@@ -12,8 +12,8 @@
          <children>
             <Label alignment="CENTER" layoutX="134.0" layoutY="41.0" prefHeight="64.0" prefWidth="369.0" text="회원관리프로그램" />
             <Button fx:id="exitButton" layoutX="224.0" layoutY="335.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="56.0" prefWidth="216.0" text="종료" />
-            <Button fx:id="listButton" layoutX="224.0" layoutY="154.0" mnemonicParsing="false" onAction="#listButtonAction" prefHeight="56.0" prefWidth="216.0" text="회원리스트" />
-            <Button fx:id="statistische" layoutX="224.0" layoutY="244.0" mnemonicParsing="false" onAction="#staticButtonAction" prefHeight="42.0" prefWidth="216.0" text="회원통계" />
+            <Button fx:id="memberlistButton" layoutX="224.0" layoutY="154.0" mnemonicParsing="false" onAction="#memberlistButtonAction" prefHeight="56.0" prefWidth="216.0" text="회원리스트" />
+            <Button fx:id="statisticsButton" layoutX="224.0" layoutY="244.0" mnemonicParsing="false" onAction="#statisticsButtonAction" prefHeight="42.0" prefWidth="216.0" text="회원통계" />
          </children>
       </AnchorPane>
    </children>

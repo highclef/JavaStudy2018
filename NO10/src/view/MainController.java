@@ -37,10 +37,10 @@ public class MainController implements Initializable {
 	// 통계 버튼 시작 부분
 	
 	
-	@FXML private Button statistische;
-	public void staticButtonAction()
+	@FXML private Button statisticsButton;
+	public void statisticsButtonAction()
 	{
-		Stage stage = (Stage) statistische.getScene().getWindow(); //스테이지2
+		Stage stage = (Stage) statisticsButton.getScene().getWindow(); //스테이지2
 		
 		try 
 		{
@@ -66,10 +66,10 @@ public class MainController implements Initializable {
 	
 
 	
-	@FXML private Button listButton;
-	@FXML private void listButtonAction()
+	@FXML private Button memberlistButton;
+	@FXML private void memberlistButtonAction()
 	{
-		Stage stage=(Stage) listButton.getScene().getWindow();
+		Stage stage=(Stage) memberlistButton.getScene().getWindow();
 		
 		try
 		{

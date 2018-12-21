@@ -35,6 +35,6 @@
       <Button layoutX="133.0" layoutY="193.0" mnemonicParsing="false" onAction="#regist" prefHeight="48.0" prefWidth="169.0" text="등록" />
       <Button layoutX="311.0" layoutY="193.0" mnemonicParsing="false" onAction="#Sakze" prefHeight="48.0" prefWidth="169.0" text="삭제" />
       <Button fx:id="waehlen" layoutX="407.0" layoutY="132.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="142.0" text="선택" />
-      <Button fx:id="backBack" layoutX="495.0" layoutY="193.0" mnemonicParsing="false" onAction="#BackgoAction" prefHeight="48.0" prefWidth="169.0" text="뒤로가기" />
+      <Button fx:id="backButton" layoutX="495.0" layoutY="193.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="48.0" prefWidth="169.0" text="뒤로가기" />
    </children>
 </AnchorPane>

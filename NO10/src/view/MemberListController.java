@@ -220,10 +220,10 @@ public class MemberListController implements Initializable {
 
 	// 뒤로가기 버튼
 	@FXML
-	private Button backBack;
+	private Button backButton;
 
-	public void BackgoAction() {
-		Stage stage = (Stage) backBack.getScene().getWindow(); // 스테이지2
+	public void BackButtonAction() {
+		Stage stage = (Stage) backButton.getScene().getWindow(); // 스테이지2
 
 		try {
 
