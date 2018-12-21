@@ -1,4 +1,4 @@
-package application;
+package view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,13 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ExitController implements Initializable {
+public class MainController implements Initializable {
 
 	@FXML private Button exitButton;
 	
@@ -48,7 +47,7 @@ public class ExitController implements Initializable {
 			
 			Stage newStage = new Stage(); // 스테이지1
 			//scene 에 레이아웃 추가할 경우
-			Parent second = FXMLLoader.load(getClass().getResource("N012.fxml"));
+			Parent second = FXMLLoader.load(getClass().getResource("StatisticsView.fxml"));
 			
 			Scene sc = new Scene(second);
 			
@@ -75,7 +74,7 @@ public class ExitController implements Initializable {
 		try
 		{
 			Stage newStage = new Stage();
-			Parent second = FXMLLoader.load(getClass().getResource("N014.fxml")); //list 쪽으로 추후 변경예정
+			Parent second = FXMLLoader.load(getClass().getResource("MemberListView.fxml")); //list 쪽으로 추후 변경예정
 			
 			Scene sc= new Scene(second);
 			newStage.setScene(sc);

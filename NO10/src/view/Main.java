@@ -1,35 +1,24 @@
-package application;
+package view;
 	
-import javafx.application.Application;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Parent;
-
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import network.NetworkManager;
 import util.Logger;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.Parent;
 
 
 
 public class Main extends Application {
 	
-	
-
-	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(this.getClass().getResource("N013.fxml"));
+			Parent root = FXMLLoader.load(this.getClass().getResource("MainScene.fxml"));
 		
 			Scene scene = new Scene(root,600,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

@@ -1,4 +1,4 @@
-package application;
+package view;
 
 import java.awt.List;
 import java.net.URL;
@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 
-public class StaticController implements Initializable {
+public class StatisticsController implements Initializable {
 
 	
 //	@FXML private Button exitButton1;

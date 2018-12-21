@@ -1,4 +1,4 @@
-package application;
+package view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +32,7 @@ import network.MessageIDs;
 import network.NetworkData;
 import network.NetworkManager;
 
-public class ListsetController implements Initializable {
+public class MemberListController implements Initializable {
 
 	// field
 	@FXML

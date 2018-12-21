@@ -11,10 +11,10 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-import application.ListsetController;
 import javafx.application.Platform;
 import model.MemberModel;
 import util.Logger;
+import view.MemberListController;
 
 public class NetworkManager {
 	private final String serverIp = "35.241.181.46";
@@ -23,7 +23,7 @@ public class NetworkManager {
 	private LinkedList<ByteBuffer> sendBuffers;
 	private byte readBuffers[];
 	
-	private ListsetController listSetController;
+	private MemberListController listSetController;
 	
 	private static NetworkManager instance = null;
 	
@@ -38,7 +38,7 @@ public class NetworkManager {
 //		readBuffers = new LinkedList<ByteBuffer>();
 	}
 	
-	public void setListSetController(ListsetController c) {
+	public void setListSetController(MemberListController c) {
 		listSetController = c;
 	}
 	public boolean connect() {
