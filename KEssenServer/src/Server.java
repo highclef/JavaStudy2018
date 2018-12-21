@@ -119,7 +119,7 @@ public class Server {
 				try {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 				
-//					dbConnection.getRs().last();
+
 					int rowCount = dbConnection.getRs().getRow();
 	
 					System.out.println("Row Count: " + rowCount);
@@ -177,7 +177,7 @@ public class Server {
 				}
 				
 			} else if (nd.getMessageID() == MessageIDs.UPDATEPOSTINGDATA_REQ) {
-//				Logger.log("UPDATEPOSTINGDATA_REQ");
+
 				PostingModel data = new PostingModel();
 				data = nd.dataFromJson(data);
 				Logger.log("Object ID : " + data.getId());
@@ -214,9 +214,6 @@ public class Server {
 				
 				try {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
-					
-//					int loginCount = 0;
-//					loginCount = dbConnection.getRs().getRow();
 					
 					if(dbConnection.getRs().next()) {
 						
@@ -261,8 +258,7 @@ public class Server {
 				nData.toString();
 				send(nData.getByteBuffer());
 			} else if (nd.getMessageID() == MessageIDs.MEMBERLIST_REQ) {
-				// TODO
-				
+
 				String SQL = "SELECT * FROM kessen.memberinfo";
 				try {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
