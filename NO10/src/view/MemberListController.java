@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.model.TableRowModel;
 import javafx.collections.FXCollections;
 //import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
@@ -24,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 //import javafx.scene.control.ListView;
 import model.MemberModel;
+import model.TableRowModel;
 import network.MessageIDs;
 import network.NetworkData;
 import network.NetworkManager;

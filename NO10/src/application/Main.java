@@ -1,4 +1,4 @@
-package view;
+package application;
 	
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +18,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(this.getClass().getResource("MainScene.fxml"));
+			Parent root = FXMLLoader.load(this.getClass().getResource("../view/MainScene.fxml"));
 		
 			Scene scene = new Scene(root,600,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
