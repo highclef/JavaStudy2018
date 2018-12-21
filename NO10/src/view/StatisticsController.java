@@ -20,6 +20,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import util.Logger;
 
 public class StatisticsController implements Initializable {
 
@@ -122,7 +123,7 @@ public class StatisticsController implements Initializable {
 
 	public void BackgoAction() {
 		Stage stage = (Stage) returnButton.getScene().getWindow(); // 스테이지2
-
+		Logger.log("뒤로가기 버튼");
 		try {
 
 			Stage newStage = new Stage(); // 스테이지1
@@ -147,6 +148,7 @@ public class StatisticsController implements Initializable {
 	
 	public void exitButtonAction(ActionEvent event)
 	{
+		Logger.log("종료 버튼");
 		Platform.exit();
 	}
 
