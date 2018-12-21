@@ -11,18 +11,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.PostingModel;
+import model.StaticModelData;
 import network.MessageIDs;
 import network.NetworkData;
 import network.NetworkManager;
 import util.Logger;
 
 public class CommunitySceneControlloer extends SceneTemplateController {
-	private String loginId = "ID7";
+	private String loginId = "";
 	private static int count = 0;
 
 	private ObservableList<PostingModel> postingModelList;
@@ -36,7 +39,12 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 	@FXML
 	private void initialize() {
-		Logger.log("");
+//		Logger.log("");
+		if (StaticModelData.getInstance().getLoginModel().logined()) {
+			loginId = StaticModelData.getInstance().getLoginModel().getUserId();
+		} else {
+			loginId = "";
+		}
 		postingModelList = FXCollections.observableArrayList();
 		postingModelList.addListener(new ListChangeListener<PostingModel>() {
 			@Override
@@ -102,13 +110,12 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 		postingModelList.remove(foundIndex);
 		postingList.getChildren().remove(foundIndex);
 	}
-	
+
 	public void modifyItem(PostingModel data) {
 		int foundIndex = findID(data.getId());
-		
+
 		postingModelList.get(foundIndex).setMsg(data.getMsg());
-		PostingItemController c = (PostingItemController) postingList.getChildren().get(foundIndex)
-				.getUserData();
+		PostingItemController c = (PostingItemController) postingList.getChildren().get(foundIndex).getUserData();
 		c.setTextArea(data.getMsg());
 	}
 
@@ -161,35 +168,44 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 
 	@FXML
 	private void onWriteText() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource(MainApp.POSTWRITINGSCENE));
-			AnchorPane pane = (AnchorPane) loader.load();
+		if (StaticModelData.getInstance().getLoginModel().logined() == false) {
+			Alert loginAlert = new Alert(AlertType.ERROR);
+			loginAlert.initModality(Modality.WINDOW_MODAL);
+			loginAlert.initOwner(getMyNode().getScene().getWindow());
+			loginAlert.setHeaderText("Write Text Fail!");
+			loginAlert.setContentText("You need to login.");
+			loginAlert.showAndWait();
+		} else {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource(MainApp.POSTWRITINGSCENE));
+				AnchorPane pane = (AnchorPane) loader.load();
 
-			Stage writeStage = new Stage();
-			writeStage.setTitle("Write Post");
-			writeStage.initModality(Modality.WINDOW_MODAL);
-			writeStage.initOwner(this.getMyNode().getScene().getWindow());
-			Scene scene = new Scene(pane);
-			writeStage.setScene(scene);
+				Stage writeStage = new Stage();
+				writeStage.setTitle("Write Post");
+				writeStage.initModality(Modality.WINDOW_MODAL);
+				writeStage.initOwner(this.getMyNode().getScene().getWindow());
+				Scene scene = new Scene(pane);
+				writeStage.setScene(scene);
 
-			PostWritingSceneController controller = loader.getController();
-			controller.setId(loginId);
-			controller.setStage(writeStage);
+				PostWritingSceneController controller = loader.getController();
+				controller.setId(loginId);
+				controller.setStage(writeStage);
 
-			writeStage.showAndWait();
+				writeStage.showAndWait();
 
-			if (controller.isCanceled()) {
+				if (controller.isCanceled()) {
 
-			} else {
-				PostingModel pm = new PostingModel();
-				pm.setUsername(loginId);
-				pm.setMsg(controller.getTextPost());
+				} else {
+					PostingModel pm = new PostingModel();
+					pm.setUsername(loginId);
+					pm.setMsg(controller.getTextPost());
 
-				sendAddItem(pm);
+					sendAddItem(pm);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -203,11 +219,13 @@ public class CommunitySceneControlloer extends SceneTemplateController {
 //		d.printData();
 		NetworkManager.getInstance().send(d.getByteBuffer());
 	}
+
 	public void sendDeleteItem(int id) {
 		NetworkData d = new NetworkData(MessageIDs.DELPOSTINGDATA_REQ, id);
 		d.pack();
 		NetworkManager.getInstance().send(d.getByteBuffer());
 	}
+
 	public void sendUpdateItem(PostingModel data) {
 		NetworkData d = new NetworkData(MessageIDs.UPDATEPOSTINGDATA_REQ, data);
 		d.pack();

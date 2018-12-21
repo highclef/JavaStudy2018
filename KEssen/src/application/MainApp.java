@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.LoginModel;
 import network.NetworkManager;
 import util.Logger;
 import view.MainSceneController;
@@ -25,6 +26,7 @@ public class MainApp extends Application {
 	public static final String REVIEWSECOND = "../view/ReviewSecond.fxml";
 	public static final String INFORMATIONSCENE = "../view/ListOverview.fxml";
 	public static final String LOGINSCENE = "../view/Login.fxml";
+	public static final String LOGINFERTIGSCENE = "../view/Loginfertig.fxml";
 	
 	Stage primaryStage;
 	private AnchorPane rootLayout;

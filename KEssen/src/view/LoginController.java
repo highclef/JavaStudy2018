@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 
+import application.MainApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ public class LoginController extends SceneTemplateController {
 
 	@FXML
 	private void initialize() {
-
+		NetworkManager.getInstance().setLoginController(this);
 	}
 
 	public void loginSuccess() {
@@ -42,17 +43,31 @@ public class LoginController extends SceneTemplateController {
 			loginingAlert.hide();
 		}
 		
-		Stage primaryStage = new Stage();
-		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("Loginfertig.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(MainApp.LOGINFERTIGSCENE));
+			Node pane = (Node) loader.load();
+
+			LoginFertigController controller = loader.getController();
+			controller.setMyTab(this.getMyTab());
+			controller.setMyNode(pane);
+			
+			SceneController.getInstance().showAndAllHideRequest(controller);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+//
+//		Stage primaryStage = new Stage();
+//		Parent root = null;
+//		try {
+//			root = FXMLLoader.load(getClass().getResource("Loginfertig.fxml"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Scene scene = new Scene(root);
+//		primaryStage.setScene(scene);
+//		primaryStage.show();
 	}
 
 	public void loginFailure() {

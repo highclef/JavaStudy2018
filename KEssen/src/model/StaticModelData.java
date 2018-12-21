@@ -6,7 +6,7 @@ public class StaticModelData {
 	private static StaticModelData instance;
 	
 	public StaticModelData() {
-		
+		loginModel = new LoginModel();
 	}
 	public void setLoginModel(LoginModel l) {
 		loginModel = l;

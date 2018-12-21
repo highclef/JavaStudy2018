@@ -131,8 +131,9 @@ public class NetworkManager {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					LoginModel l = StaticModelData.getInstance().getLoginModel();
+					LoginModel l = new LoginModel();
 					l = d.dataFromJson(l);
+					StaticModelData.getInstance().setLoginModel(l);
 					if (l.logined()) {
 						loginController.loginSuccess();
 					} else {

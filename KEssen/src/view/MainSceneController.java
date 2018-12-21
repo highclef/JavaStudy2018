@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import model.StaticModelData;
 import util.Logger;
 
 public class MainSceneController {
@@ -27,14 +28,14 @@ public class MainSceneController {
 
 	@FXML
 	private void initialize() {
-		tabPane.getSelectionModel().selectedItemProperty().addListener(
-				(ov, oldTab, newTab) -> changedTab(newTab));
+		tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> changedTab(newTab));
 		Logger.log("");
 	}
 
 	public void changedTab(Tab tab) {
 		Logger.log(tab.getId());
 	}
+
 	public void showHomeScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -44,27 +45,46 @@ public class MainSceneController {
 			HomeSceneController controller = loader.getController();
 			controller.setMyTab(homeTab);
 			controller.setMyNode(pane);
-			
-			SceneController.getInstance().showAndAllHideRequest(controller);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public void showLoginScene() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource(MainApp.LOGINSCENE));
-			Node pane = (Node) loader.load();
 
-			LoginController controller = loader.getController();
-			controller.setMyTab(loginTab);
-			controller.setMyNode(pane);
-			
 			SceneController.getInstance().showAndAllHideRequest(controller);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public void showLoginScene() {
+		if (StaticModelData.getInstance().getLoginModel().logined()) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource(MainApp.LOGINFERTIGSCENE));
+				Node pane = (Node) loader.load();
+
+				LoginFertigController controller = loader.getController();
+				controller.setMyTab(loginTab);
+				controller.setMyNode(pane);
+
+				SceneController.getInstance().showAndAllHideRequest(controller);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource(MainApp.LOGINSCENE));
+				Node pane = (Node) loader.load();
+
+				LoginController controller = loader.getController();
+				controller.setMyTab(loginTab);
+				controller.setMyNode(pane);
+
+				SceneController.getInstance().showAndAllHideRequest(controller);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public void showCommunityScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -74,7 +94,7 @@ public class MainSceneController {
 			CommunitySceneControlloer controller = loader.getController();
 			controller.setMyTab(communityTab);
 			controller.setMyNode(pane);
-			
+
 			SceneController.getInstance().showAndAllHideRequest(controller);
 //			Logger.log("");
 		} catch (IOException e) {
@@ -98,7 +118,7 @@ public class MainSceneController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showReviewScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -115,7 +135,6 @@ public class MainSceneController {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void initTabContent() {
 		if (homeTab != null) {
@@ -142,7 +161,7 @@ public class MainSceneController {
 			showHomeScene();
 		}
 	}
-	
+
 	@FXML
 	private void onLoginTabSelected() {
 		if (loginTab.isSelected()) {
@@ -150,7 +169,7 @@ public class MainSceneController {
 			showLoginScene();
 		}
 	}
-	
+
 	@FXML
 	private void onInformationTabSelected() {
 		if (informationTab.isSelected()) {
@@ -158,7 +177,7 @@ public class MainSceneController {
 			showInformationScene();
 		}
 	}
-	
+
 	@FXML
 	private void onCommunityTabSelected() {
 		Logger.log(" selected !! : " + communityTab.isSelected());
@@ -167,6 +186,7 @@ public class MainSceneController {
 			showCommunityScene();
 		}
 	}
+
 	@FXML
 	private void onReviewTabSelected() {
 		if (reviewTab.isSelected()) {
@@ -174,11 +194,12 @@ public class MainSceneController {
 			showReviewScene();
 		}
 	}
+
 	@FXML
 	private void onModifyInfo() {
 		Logger.log("");
 	}
-	
+
 	@FXML
 	private void onMessageBox() {
 		Logger.log("");

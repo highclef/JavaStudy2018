@@ -118,13 +118,14 @@ public class Server {
 				try {
 					dbConnection.setRs(dbConnection.getSt().executeQuery(SQL));
 				
-					dbConnection.getRs().last();
+//					dbConnection.getRs().last();
 					int rowCount = dbConnection.getRs().getRow();
 	
 					System.out.println("Row Count: " + rowCount);
 					
 					while(dbConnection.getRs().next()) {
 						PostingModel data = new PostingModel();
+						Logger.log("data read from DB");
 						int id = dbConnection.getRs().getInt("id");
 						data.setId(id);
 						Logger.log("Loading ID : " + data.getId());
