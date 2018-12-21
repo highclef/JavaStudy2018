@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -35,5 +37,10 @@
             <Label text="Zurückmelden" />
          </children>
       </StackPane>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#onAusloggenBtn" text="Ausloggen" />
+        </buttons>
+      </ButtonBar>
    </children>
 </VBox>

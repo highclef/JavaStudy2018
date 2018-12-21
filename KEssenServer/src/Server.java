@@ -261,6 +261,8 @@ public class Server {
 				nData.pack();
 				nData.toString();
 				send(nData.getByteBuffer());
+			} else if (nd.getMessageID() == MessageIDs.MEMBERLIST_REQ) {
+				// TODO
 			}
 		}
 		
