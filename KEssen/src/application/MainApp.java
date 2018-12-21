@@ -28,7 +28,7 @@ public class MainApp extends Application {
 	public static final String LOGINSCENE = "../view/Login.fxml";
 	public static final String LOGINFERTIGSCENE = "../view/Loginfertig.fxml";
 	
-	Stage primaryStage;
+	public static Stage primaryStage;
 	private AnchorPane rootLayout;
 
 	public MainApp() {
@@ -39,7 +39,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Koreanisches Essen");
+		this.primaryStage.setTitle("Koreanisches Essen : disconnected");
 
 		initLayout();
 		showMainScene();
@@ -132,6 +132,7 @@ public class MainApp extends Application {
 				// TODO Auto-generated method stub
 				Logger.log("connect server!");
 				if (NetworkManager.getInstance().connect()) {
+					MainApp.primaryStage.setTitle("Koreanisches Essen : connected");
 					timer.cancel();
 				}
 			}

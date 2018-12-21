@@ -10,7 +10,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import application.MainApp;
 import javafx.application.Platform;
 import model.LoginModel;
 import model.PostingModel;
@@ -26,6 +29,7 @@ public class NetworkManager {
 	Socket socket;
 	private LinkedList<ByteBuffer> sendBuffers;
 	private byte readBuffers[];
+	private Timer connectTimer;
 	
 	private CommunitySceneControlloer communitySceneController;
 	private LoginController loginController;
@@ -60,6 +64,24 @@ public class NetworkManager {
 		}
 	}
 
+	public void reConnect() {
+		MainApp.primaryStage.setTitle("Koreanisches Essen : disconnected");
+		connectTimer.cancel();
+		connectTimer.purge();
+		
+		TimerTask timerTask = new TimerTask() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Logger.log("connect server!");
+				if (NetworkManager.getInstance().connect()) {
+					MainApp.primaryStage.setTitle("Koreanisches Essen : connected");
+					connectTimer.cancel();
+				}
+			}
+		};
+		connectTimer.scheduleAtFixedRate(timerTask, 0, 5000); 
+	}
 	public boolean isConnected() {
 		if (socket == null) {
 			return false;
@@ -173,13 +195,14 @@ public class NetworkManager {
 //					out.writeUTF("[" + name + "]" + scanner.nextLine());
 					if (isConnected() == false) {
 						Logger.log("disconnected");
+						reConnect();
 						return;
 					}
 					
 					if (sendBuffers.isEmpty()) {
 						
 					} else {
-						byte b[] = new byte[1024];
+						byte b[] = new byte[1024 * 1024];
 						b = sendBuffers.poll().array();
 						out.write(b);
 						out.flush();
@@ -215,9 +238,10 @@ public class NetworkManager {
 //					System.out.println(in.readUTF());
 					if (isConnected() == false) {
 						Logger.log("disconnected");
+						reConnect();
 						return;
 					}
-					byte readByte[] = new byte[1024];
+					byte readByte[] = new byte[1024 * 1024];
 					int result = in.read(readByte);
 					if (result == -1) {
 						Logger.log("socket error, scoket close");
