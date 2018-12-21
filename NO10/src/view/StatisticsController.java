@@ -1,24 +1,25 @@
 package view;
 
-import java.awt.List;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Button;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.paint.Color;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class StatisticsController implements Initializable {
 
@@ -115,5 +116,38 @@ public class StatisticsController implements Initializable {
 					
 				
 			}
+	// 뒤로가기 버튼
+	@FXML
+	private Button returnButton;
+
+	public void BackgoAction() {
+		Stage stage = (Stage) returnButton.getScene().getWindow(); // 스테이지2
+
+		try {
+
+			Stage newStage = new Stage(); // 스테이지1
+			// scene 에 레이아웃 추가할 경우
+			Parent second = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+
+			Scene sc = new Scene(second);
+
+			// Scene를 스테이지에서 상영하게
+			newStage.setScene(sc);
+			newStage.show();
+
+			// 기본 페이지 삭제함
+			stage.hide();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private Button exxButton1;
+	
+	public void exitButtonAction(ActionEvent event)
+	{
+		Platform.exit();
+	}
 
 }

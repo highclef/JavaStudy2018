@@ -5,26 +5,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.TableRowModel;
+import javafx.collections.FXCollections;
+//import javafx.beans.property.IntegerProperty;
+import javafx.collections.ObservableList;
 //import javafx.application.Platform;
 //import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 //import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
-//import javafx.beans.property.IntegerProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.RadioButton;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 //import javafx.scene.control.ListView;
 import model.MemberModel;
@@ -233,7 +229,7 @@ public class MemberListController implements Initializable {
 
 			Stage newStage = new Stage(); // 스테이지1
 			// scene 에 레이아웃 추가할 경우
-			Parent second = FXMLLoader.load(getClass().getResource("N013.fxml"));
+			Parent second = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
 
 			Scene sc = new Scene(second);
 
