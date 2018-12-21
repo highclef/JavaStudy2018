@@ -144,12 +144,12 @@ public class Server {
 						send(nData.getByteBuffer());
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 				
 			} else if (nd.getMessageID() == MessageIDs.DELPOSTINGDATA_REQ) {
-//				Logger.log("DELPOSTINGDATA_REQ");
+
 				int id = 0;
 				id = nd.dataFromJson(id);
 				Logger.log("Deleting ID : " + id);
@@ -199,11 +199,7 @@ public class Server {
 					send(nData.getByteBuffer());
 				}
 			} else if (nd.getMessageID() == MessageIDs.LOGIN_REQ) {
-//			} else if (nd.getMessageID() == 5) {
-				// TODO check id, password from DB
-				// has id, password => setLogined true from LoginModel
-				// has not id, password => setLogined false from LoginModel
-				// send to client with LOGIN_RES with LoginModel
+
 				LoginModel data = new LoginModel();
 				data = nd.dataFromJson(data);
 				
@@ -235,7 +231,7 @@ public class Server {
 					}
 					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				} 
 //				finally {
