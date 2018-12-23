@@ -10,12 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.RestaurantModel;
 import util.Logger;
 
 public class RestaurantListViewController extends SceneTemplateController {
 	
 	ObservableList<String> list = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private ListView<String> cityList;
 	
@@ -38,7 +39,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 	}
 	
 	@FXML
-	private void displaySelectedItems(MouseEvent event) {
+	private void displaySelectedItem(MouseEvent event) {
 		String selectedCity = cityList.getSelectionModel().getSelectedItem();
 		Logger.log("");
 		
@@ -96,19 +97,27 @@ public class RestaurantListViewController extends SceneTemplateController {
 	
 	@FXML
 	private void showRestaurantDetails(MouseEvent event) {
-		showListOverview();
-		Logger.log("");
+		RestaurantModel rm = new RestaurantModel();
+		String selectedRestaurant = restaurantList.getSelectionModel().getSelectedItem();
+		
+		Logger.log(selectedRestaurant + " is selected");
+		rm.setName(selectedRestaurant);
+		showListOverview(rm);
+		
 	}
 	
-	public void showListOverview() {
+	private void showListOverview(RestaurantModel rm) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource(MainApp.RESTAURANTDETAILSCENE));
 			AnchorPane pane = (AnchorPane) loader.load();
 
-			RestaurantDetailViewController controller = loader.getController();
+			RestaurantDetailViewController controller = loader.getController(); // initialize();
 			controller.setMyTab(super.getMyTab());
 			controller.setMyNode(pane);
+			controller.setRm(rm);
+			controller.loadMenuData();
+			controller.loadReviewData();
 
 			SceneController.getInstance().showRequest(controller);
 
