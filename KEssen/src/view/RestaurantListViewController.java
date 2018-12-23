@@ -74,6 +74,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 	
 	private void loadRestaurantData(String selectedCity) {
 		list.removeAll(list);
+		restaurantList.setItems(list);
 		
 		if (selectedCity == "Aachen") {
 			
