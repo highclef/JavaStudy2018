@@ -1,7 +1,5 @@
 package model;
 
-import com.google.gson.Gson;
-
 public class Member {
 	
 	private String firstName;
