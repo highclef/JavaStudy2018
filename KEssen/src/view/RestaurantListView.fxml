@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RestaurantListViewController">
    <children>
-      <Button layoutX="273.0" layoutY="189.0" mnemonicParsing="false" onAction="#onListButton" text="Button" />
+      <Separator layoutY="85.0" prefHeight="14.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+      <Button layoutX="522.0" layoutY="35.0" mnemonicParsing="false" onAction="#onListButton" text="Button" />
+      <Label layoutX="30.0" layoutY="30.0" prefHeight="36.0" prefWidth="134.0" text="도시 선택">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="291.0" layoutY="30.0" text="한식당 리스트">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutY="92.0" prefHeight="310.0" prefWidth="200.0">
+         <content>
+            <ListView fx:id="cityList" onMouseClicked="#displaySelectedItems" prefHeight="308.0" prefWidth="187.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="200.0" layoutY="92.0" prefHeight="310.0" prefWidth="398.0">
+         <content>
+            <ListView fx:id="restaurantList" prefHeight="307.0" prefWidth="383.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
