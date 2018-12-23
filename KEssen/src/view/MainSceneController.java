@@ -105,10 +105,11 @@ public class MainSceneController {
 	public void showInformationScene() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource(MainApp.INFORMATIONSCENE));
+			loader.setLocation(MainApp.class.getResource(MainApp.RESTAURANTLISTSCENE));
 			Node pane = loader.load();
 
-			InformationOverviewController controller = loader.getController();
+//			InformationOverviewController controller = loader.getController();
+			RestaurantListViewController controller = loader.getController();
 			controller.setMyTab(informationTab);
 			controller.setMyNode(pane);
 
