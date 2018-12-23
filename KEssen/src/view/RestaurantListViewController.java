@@ -62,7 +62,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 			String c = "A3";
 			String d = "A4";
 			list.addAll(a, b, c, d);
-			restaurantList.getItems().addAll(list);
+			restaurantList.setItems(list);
 			
 		} else if (selectedCity == "Bochum") {
 
@@ -71,7 +71,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 			String c = "B3";
 			String d = "B4";
 			list.addAll(a, b, c, d);
-			restaurantList.getItems().addAll(list);
+			restaurantList.setItems(list);
 			
 		} else if (selectedCity == "Duisburg") {
 
@@ -80,7 +80,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 			String c = "DU3";
 			String d = "DU4";
 			list.addAll(a, b, c, d);
-			restaurantList.getItems().addAll(list);
+			restaurantList.setItems(list);
 			
 		} else if (selectedCity == "Duesseldorf") {
 
@@ -89,7 +89,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 			String c = "D3";
 			String d = "D4";
 			list.addAll(a, b, c, d);
-			restaurantList.getItems().addAll(list);
+			restaurantList.setItems(list);
 		} 
 
 	}
