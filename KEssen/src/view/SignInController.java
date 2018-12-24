@@ -1,5 +1,5 @@
 package view;
 
-public class SignInController {
+public class SignInController extends SceneTemplateController {
 
 }

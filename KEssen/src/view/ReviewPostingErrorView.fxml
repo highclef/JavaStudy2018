@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="view.ReviewPostingErrorViewController">
+   <children>
+      <Text layoutX="68.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="내용을 입력하세요">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Button layoutX="128.0" layoutY="142.0" mnemonicParsing="false" onAction="#closeReviewPostingErrorView" prefHeight="23.0" prefWidth="44.0" text="OK" />
+   </children>
+</AnchorPane>

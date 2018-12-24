@@ -15,6 +15,8 @@ import util.Logger;
 
 public class RestaurantListViewController extends SceneTemplateController {
 	
+	public static String RESTAURANTNAME = "";
+	
 	ObservableList<String> list = FXCollections.observableArrayList();
 
 	@FXML
@@ -24,7 +26,7 @@ public class RestaurantListViewController extends SceneTemplateController {
 	private ListView<String> restaurantList;	
 
 	@FXML
-	public void initialize() {
+	private void initialize() {
 		loadCityData();
 	}
 	
@@ -102,11 +104,12 @@ public class RestaurantListViewController extends SceneTemplateController {
 		
 		Logger.log(selectedRestaurant + " is selected");
 		rm.setName(selectedRestaurant);
-		showListOverview(rm);
+
+		showRestaurantDetailView(rm);
 		
 	}
 	
-	private void showListOverview(RestaurantModel rm) {
+	private void showRestaurantDetailView(RestaurantModel rm) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource(MainApp.RESTAURANTDETAILSCENE));
