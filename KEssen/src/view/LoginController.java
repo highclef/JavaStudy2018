@@ -10,9 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -97,11 +96,11 @@ public class LoginController extends SceneTemplateController {
 	}
 
 	@FXML
-	private void Anmeldung(ActionEvent event) throws Exception {
+	private void SignIn(ActionEvent event) throws Exception {
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("Anmelden.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("SignInView.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Anmeldung");
+		primaryStage.setTitle("Sign in");
 		primaryStage.initModality(Modality.WINDOW_MODAL);
 		primaryStage.initOwner(this.getMyNode().getScene().getWindow());
 		primaryStage.setScene(scene);

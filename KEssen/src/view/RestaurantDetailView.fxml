@@ -36,6 +36,11 @@
          <font>
             <Font size="20.0" />
          </font></Label>
+      <Label layoutX="392.0" layoutY="37.0" text="리뷰">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
       <ScrollPane hbarPolicy="NEVER" layoutX="245.0" layoutY="71.0" prefHeight="156.0" prefWidth="334.0">
          <content>
             <ListView fx:id="reviewList" prefHeight="156.0" prefWidth="330.0" />
