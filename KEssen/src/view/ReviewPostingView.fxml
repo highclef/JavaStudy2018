@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -26,5 +27,21 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="31.0" layoutY="162.0" text="제목: ">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="125.0" text="현재 접속된 ID: ">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="userName" layoutX="166.0" layoutY="123.0" text="Username">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="titleTextField" layoutX="90.0" layoutY="162.0" prefHeight="26.0" prefWidth="286.0" />
    </children>
 </AnchorPane>

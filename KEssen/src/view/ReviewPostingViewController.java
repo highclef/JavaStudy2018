@@ -10,8 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.StaticModelData;
 import util.Logger;
 
 public class ReviewPostingViewController extends SceneTemplateController {
@@ -19,21 +21,26 @@ public class ReviewPostingViewController extends SceneTemplateController {
 	@FXML
 	Label nameLabel;
 	@FXML
+	Label userName;
+	@FXML
 	TextArea textArea;
+	@FXML
+	TextField titleTextField;
 
 	
 	@FXML
 	private void initialize() {
 		
 		nameLabel.setText(RestaurantListViewController.RESTAURANTNAME);
-		Logger.log("Review Posting: " + RestaurantListViewController.RESTAURANTNAME);
-		
-	}
+		Logger.log("Review Posting - Restaurant Name: " + RestaurantListViewController.RESTAURANTNAME);
+		userName.setText(StaticModelData.getInstance().getLoginModel().getUserId());
+		Logger.log("Review Posting - User Name: " + userName.getText());
+	}	
 	
 	@FXML
 	private void postingReview() throws IOException {
 		
-		if(textArea.getText().isEmpty()) {
+		if(textArea.getText().isEmpty() || titleTextField.getText().isEmpty()) {
 			Logger.log("No Text in Textarea");
 			
 			// Open New Window

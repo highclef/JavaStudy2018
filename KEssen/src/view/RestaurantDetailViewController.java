@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.RestaurantModel;
+import model.StaticModelData;
 import util.Logger;
 
 public class RestaurantDetailViewController extends SceneTemplateController{
@@ -132,16 +135,27 @@ public class RestaurantDetailViewController extends SceneTemplateController{
 	@FXML
 	private void displayReviewPostingView() throws IOException {
 		
-		// Open New Window
-				Stage primaryStage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("ReviewPostingView.fxml"));
-				Scene scene = new Scene(root);		
-				
-				primaryStage.setTitle("Review posting");
-				primaryStage.initModality(Modality.WINDOW_MODAL);
-				primaryStage.initOwner(this.getMyNode().getScene().getWindow());
-				primaryStage.setScene(scene);
-				primaryStage.show();
+		if (StaticModelData.getInstance().getLoginModel().logined() == false) {
+			
+			Alert loginAlert = new Alert(AlertType.ERROR);
+			loginAlert.initModality(Modality.WINDOW_MODAL);
+			loginAlert.initOwner(getMyNode().getScene().getWindow());
+			loginAlert.setHeaderText("Write Text Fail!");
+			loginAlert.setContentText("You need to login.");
+			loginAlert.showAndWait();
+			
+		} else {
+			// Open New Window
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("ReviewPostingView.fxml"));
+			Scene scene = new Scene(root);		
+			
+			primaryStage.setTitle("Review posting");
+			primaryStage.initModality(Modality.WINDOW_MODAL);
+			primaryStage.initOwner(this.getMyNode().getScene().getWindow());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}
 	}
 	
 	@FXML
