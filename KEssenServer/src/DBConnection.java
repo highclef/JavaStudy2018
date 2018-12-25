@@ -8,7 +8,7 @@ public class DBConnection {
 //	static private final String DB_URL = "jdbc:mysql://35.241.181.46/kessen";
 	static private final String DB_URL = "jdbc:mysql://localhost/kessen";
 	static private final String SERVERTIMEZONE = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-
+	static private final String AUTORECONNECTION = "&autoReconnect=true";
 	static private final String USERNAME = "test";
 	static private final String PASSWORD = "ehrdlftmxjel";
 	
@@ -46,7 +46,7 @@ public class DBConnection {
 	public DBConnection() {
 		try {
 			Class.forName(JDBC_DRIVER);
-			con = DriverManager.getConnection(DB_URL + SERVERTIMEZONE, USERNAME, PASSWORD);
+			con = DriverManager.getConnection(DB_URL + SERVERTIMEZONE + AUTORECONNECTION, USERNAME, PASSWORD);
 			st = con.createStatement();
 			
 			System.out.println("Connection Successful");
