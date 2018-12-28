@@ -9,60 +9,60 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RestaurantDetailViewController">
+<AnchorPane prefHeight="560.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RestaurantDetailViewController">
    <children>
       <Label fx:id="nameLabel" layoutX="75.0" layoutY="33.0" prefHeight="33.0" prefWidth="101.0" text="식당 이름">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="addressLabel" layoutX="232.0" layoutY="37.0" text="주소">
+      <Label fx:id="addressLabel" layoutX="98.0" layoutY="123.0" text="주소">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="restaurantTableView" layoutX="27.0" layoutY="75.0" prefHeight="144.0" prefWidth="200.0">
+      <TableView fx:id="restaurantTableView" layoutX="32.0" layoutY="171.0" prefHeight="144.0" prefWidth="194.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Label layoutX="502.0" layoutY="37.0" text="별점:">
+      <Label layoutX="80.0" layoutY="83.0" text="별점:">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="scoreLabel" layoutX="566.0" layoutY="37.0" prefHeight="25.0" prefWidth="20.0" text="4">
+      <Label fx:id="scoreLabel" layoutX="137.0" layoutY="83.0" prefHeight="25.0" prefWidth="20.0" text="4">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="392.0" layoutY="37.0" text="리뷰">
+      <Label layoutX="55.0" layoutY="413.0" text="리뷰">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ScrollPane hbarPolicy="NEVER" layoutX="245.0" layoutY="71.0" prefHeight="156.0" prefWidth="334.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="132.0" layoutY="361.0" prefHeight="156.0" prefWidth="456.0">
          <content>
-            <ListView fx:id="reviewList" onMouseClicked="#displaySelectedReviewDetail" prefHeight="156.0" prefWidth="334.0" />
+            <ListView fx:id="reviewList" onMouseClicked="#displaySelectedReviewDetail" prefHeight="156.0" prefWidth="456.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="107.0" layoutY="222.0" text="메뉴">
+      <Label layoutX="340.0" layoutY="57.0" text="메뉴">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ScrollPane hbarPolicy="NEVER" layoutX="26.0" layoutY="256.0" prefHeight="156.0" prefWidth="200.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="254.0" layoutY="102.0" prefHeight="214.0" prefWidth="234.0">
          <content>
-            <ListView fx:id="menuItemList" onMouseClicked="#displaySelectedMenuTableView" prefHeight="156.0" prefWidth="200.0" />
+            <ListView fx:id="menuItemList" onMouseClicked="#displaySelectedMenuTableView" prefHeight="214.0" prefWidth="234.0" />
          </content>
       </ScrollPane>
-      <TableView fx:id="menuTableView" layoutX="245.0" layoutY="250.0" prefHeight="156.0" prefWidth="334.0">
+      <TableView fx:id="menuTableView" layoutX="524.0" layoutY="102.0" prefHeight="214.0" prefWidth="248.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button layoutX="598.0" layoutY="386.0" mnemonicParsing="false" onAction="#onBackButton" text="뒤로가기" />
-      <Button layoutX="596.0" layoutY="207.0" mnemonicParsing="false" onAction="#displayReviewPostingView" text="리뷰 쓰기" />
+      <Button layoutX="716.0" layoutY="494.0" mnemonicParsing="false" onAction="#onBackButton" text="뒤로가기" />
+      <Button layoutX="633.0" layoutY="494.0" mnemonicParsing="false" onAction="#displayReviewPostingView" text="리뷰 쓰기" />
    </children>
 </AnchorPane>
